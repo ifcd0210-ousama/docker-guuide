@@ -1,0 +1,1990 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Docker + AI Mastery Guide 2026</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg: #F5F2EB;
+            --bg-alt: #EDE9E0;
+            --text: #1a1a1a;
+            --text-muted: #666;
+            --accent: #FF4D00;
+            --accent-2: #0066FF;
+            --border: rgba(26, 26, 26, 0.1);
+            --border-dark: rgba(26, 26, 26, 0.2);
+        }
+
+        ::selection {
+            background: var(--accent);
+            color: white;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+            cursor: default;
+        }
+
+        /* Grain overlay */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            opacity: 0.03;
+            z-index: 10000;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+        }
+
+        /* Custom cursor */
+        .cursor {
+            width: 20px;
+            height: 20px;
+            border: 1.5px solid var(--text);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 99999;
+            transition: transform 0.15s ease, border-color 0.3s ease;
+            transform: translate(-50%, -50%);
+        }
+
+        .cursor.hover {
+            transform: translate(-50%, -50%) scale(2);
+            border-color: var(--accent);
+            background: rgba(255, 77, 0, 0.1);
+        }
+
+        .cursor-dot {
+            width: 4px;
+            height: 4px;
+            background: var(--text);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 99999;
+            transform: translate(-50%, -50%);
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 1.5rem 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            mix-blend-mode: difference;
+        }
+
+        .logo {
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: white;
+        }
+
+        .nav-toggle {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            cursor: pointer;
+        }
+
+        .nav-toggle span {
+            width: 30px;
+            height: 1.5px;
+            background: white;
+            transition: all 0.3s ease;
+        }
+
+        /* Navigation Panel */
+        .nav-panel {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 100%;
+            max-width: 500px;
+            height: 100vh;
+            background: var(--text);
+            z-index: 9999;
+            transition: right 0.6s cubic-bezier(0.77, 0, 0.175, 1);
+            padding: 6rem 3rem;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .nav-panel.active {
+            right: 0;
+        }
+
+        .nav-panel a {
+            color: var(--bg);
+            text-decoration: none;
+            font-size: 2.5rem;
+            font-family: 'Instrument Serif', serif;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            transition: all 0.3s ease;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-panel a span {
+            font-size: 0.9rem;
+            font-family: 'Space Grotesk', sans-serif;
+            opacity: 0.5;
+        }
+
+        .nav-panel a:hover {
+            padding-left: 1rem;
+            color: var(--accent);
+        }
+
+        .nav-close {
+            position: absolute;
+            top: 2rem;
+            right: 2rem;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .nav-close::before,
+        .nav-close::after {
+            content: '';
+            position: absolute;
+            width: 25px;
+            height: 1.5px;
+            background: var(--bg);
+        }
+
+        .nav-close::before { transform: rotate(45deg); }
+        .nav-close::after { transform: rotate(-45deg); }
+
+        /* Hero */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 3rem;
+            position: relative;
+        }
+
+        .hero-bg-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: clamp(150px, 25vw, 400px);
+            font-weight: 700;
+            color: transparent;
+            -webkit-text-stroke: 1px var(--border-dark);
+            opacity: 0.5;
+            pointer-events: none;
+            white-space: nowrap;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-label {
+            font-size: 0.75rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .hero-label::before {
+            content: '';
+            width: 40px;
+            height: 1px;
+            background: var(--text-muted);
+        }
+
+        .hero h1 {
+            font-family: 'Instrument Serif', serif;
+            font-size: clamp(3rem, 8vw, 7rem);
+            font-weight: 400;
+            line-height: 1.1;
+            max-width: 900px;
+        }
+
+        .hero h1 em {
+            font-style: italic;
+            color: var(--accent);
+        }
+
+        .hero-meta {
+            display: flex;
+            gap: 4rem;
+            margin-top: 4rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .hero-stat {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .hero-stat-value {
+            font-size: 2.5rem;
+            font-weight: 300;
+            line-height: 1;
+        }
+
+        .hero-stat-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--text-muted);
+            margin-top: 0.5rem;
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 3rem;
+            right: 3rem;
+            writing-mode: vertical-rl;
+            font-size: 0.7rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .scroll-indicator::after {
+            content: '';
+            width: 1px;
+            height: 60px;
+            background: linear-gradient(to bottom, var(--text), transparent);
+            animation: scrollPulse 2s ease infinite;
+        }
+
+        @keyframes scrollPulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        /* Section styling */
+        section {
+            padding: 8rem 3rem;
+            position: relative;
+        }
+
+        .section-number {
+            position: absolute;
+            top: 3rem;
+            left: 3rem;
+            font-size: 0.75rem;
+            letter-spacing: 0.1em;
+            color: var(--text-muted);
+        }
+
+        .section-header {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            margin-bottom: 6rem;
+        }
+
+        .section-title {
+            font-family: 'Instrument Serif', serif;
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 400;
+            line-height: 1.2;
+        }
+
+        .section-title em {
+            font-style: italic;
+            color: var(--accent);
+        }
+
+        .section-intro {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            align-self: end;
+        }
+
+        /* Marquee */
+        .marquee-wrapper {
+            overflow: hidden;
+            padding: 4rem 0;
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            background: var(--text);
+        }
+
+        .marquee {
+            display: flex;
+            animation: marquee 30s linear infinite;
+        }
+
+        .marquee-item {
+            flex-shrink: 0;
+            font-family: 'Instrument Serif', serif;
+            font-size: 5rem;
+            font-style: italic;
+            color: var(--bg);
+            padding: 0 2rem;
+            white-space: nowrap;
+        }
+
+        .marquee-item span {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            background: var(--accent);
+            border-radius: 50%;
+            margin: 0 2rem;
+            vertical-align: middle;
+        }
+
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* Card Grid */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 2rem;
+        }
+
+        .card {
+            background: white;
+            border-radius: 0;
+            padding: 2.5rem;
+            position: relative;
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+            border: 1px solid var(--border);
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.1);
+        }
+
+        .card-large {
+            grid-column: span 8;
+        }
+
+        .card-medium {
+            grid-column: span 6;
+        }
+
+        .card-small {
+            grid-column: span 4;
+        }
+
+        .card-number {
+            font-size: 6rem;
+            font-weight: 700;
+            color: var(--bg-alt);
+            position: absolute;
+            top: 1rem;
+            right: 2rem;
+            line-height: 1;
+        }
+
+        .card-label {
+            font-size: 0.7rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .card-label::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: var(--accent);
+            border-radius: 50%;
+        }
+
+        .card h3 {
+            font-family: 'Instrument Serif', serif;
+            font-size: 1.8rem;
+            font-weight: 400;
+            margin-bottom: 1.5rem;
+            line-height: 1.3;
+        }
+
+        .card p {
+            color: var(--text-muted);
+            line-height: 1.7;
+        }
+
+        /* Pro Tip styling */
+        .tip {
+            background: var(--text);
+            color: var(--bg);
+            padding: 2rem;
+            margin: 2rem 0;
+            position: relative;
+        }
+
+        .tip::before {
+            content: '→';
+            position: absolute;
+            top: 2rem;
+            right: 2rem;
+            font-size: 1.5rem;
+            color: var(--accent);
+        }
+
+        .tip-label {
+            font-size: 0.65rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+
+        /* AI Hack styling */
+        .ai-hack {
+            background: linear-gradient(135deg, #0066FF 0%, #00D4FF 100%);
+            color: white;
+            padding: 2rem;
+            margin: 2rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ai-hack::after {
+            content: 'AI';
+            position: absolute;
+            bottom: -20px;
+            right: 20px;
+            font-size: 8rem;
+            font-weight: 700;
+            opacity: 0.1;
+        }
+
+        /* Warning styling */
+        .warning {
+            background: transparent;
+            border: 2px solid var(--accent);
+            padding: 2rem;
+            margin: 2rem 0;
+            position: relative;
+        }
+
+        .warning::before {
+            content: '!';
+            position: absolute;
+            top: -15px;
+            left: 20px;
+            background: var(--bg);
+            color: var(--accent);
+            padding: 0 0.5rem;
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+
+        /* Code blocks */
+        pre {
+            background: #1a1a1a;
+            color: #f0f0f0;
+            padding: 2rem;
+            overflow-x: auto;
+            font-family: 'SF Mono', 'Fira Code', monospace;
+            font-size: 0.85rem;
+            line-height: 1.8;
+            margin: 2rem 0;
+            border: none;
+            position: relative;
+        }
+
+        pre::before {
+            content: '';
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            display: flex;
+            gap: 6px;
+        }
+
+        code {
+            background: rgba(26, 26, 26, 0.05);
+            padding: 0.2rem 0.5rem;
+            font-family: 'SF Mono', 'Fira Code', monospace;
+            font-size: 0.85em;
+        }
+
+        pre code {
+            background: none;
+            padding: 0;
+        }
+
+        .code-label {
+            position: absolute;
+            top: 0.75rem;
+            right: 1rem;
+            font-size: 0.65rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: #666;
+        }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+            padding-left: 100px;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 40px;
+            top: 0;
+            bottom: 0;
+            width: 1px;
+            background: var(--border-dark);
+        }
+
+        .timeline-item {
+            position: relative;
+            padding: 3rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .timeline-item:last-child {
+            border-bottom: none;
+        }
+
+        .timeline-marker {
+            position: absolute;
+            left: -60px;
+            top: 3rem;
+            font-size: 0.7rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--accent);
+            background: var(--bg);
+            padding: 0.25rem 0;
+        }
+
+        .timeline-marker::before {
+            content: '';
+            position: absolute;
+            left: -12px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 8px;
+            height: 8px;
+            background: var(--accent);
+            border-radius: 50%;
+        }
+
+        .timeline-content h4 {
+            font-family: 'Instrument Serif', serif;
+            font-size: 1.5rem;
+            font-weight: 400;
+            margin-bottom: 1rem;
+        }
+
+        /* Project cards */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0;
+        }
+
+        .project-card {
+            border: 1px solid var(--border);
+            border-right: none;
+            padding: 3rem;
+            position: relative;
+            transition: all 0.4s ease;
+            cursor: pointer;
+        }
+
+        .project-card:last-child {
+            border-right: 1px solid var(--border);
+        }
+
+        .project-card:hover {
+            background: var(--text);
+            color: var(--bg);
+        }
+
+        .project-card:hover .project-number {
+            color: var(--accent);
+        }
+
+        .project-number {
+            font-size: 5rem;
+            font-weight: 700;
+            color: var(--border-dark);
+            line-height: 1;
+            margin-bottom: 2rem;
+            transition: color 0.4s ease;
+        }
+
+        .project-title {
+            font-family: 'Instrument Serif', serif;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .project-stack {
+            font-size: 0.75rem;
+            letter-spacing: 0.05em;
+            opacity: 0.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .project-desc {
+            font-size: 0.9rem;
+            line-height: 1.6;
+            opacity: 0.8;
+        }
+
+        /* Table styling */
+        .table-wrapper {
+            overflow-x: auto;
+            margin: 2rem 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 1.5rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+
+        th {
+            font-size: 0.7rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        td {
+            font-size: 0.95rem;
+        }
+
+        tbody tr {
+            transition: background 0.3s ease;
+        }
+
+        tbody tr:hover {
+            background: rgba(255, 77, 0, 0.03);
+        }
+
+        /* Resources section */
+        .resources-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0;
+        }
+
+        .resource-category {
+            border: 1px solid var(--border);
+            border-right: none;
+            padding: 2rem;
+        }
+
+        .resource-category:last-child {
+            border-right: 1px solid var(--border);
+        }
+
+        .resource-category h4 {
+            font-size: 0.7rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .resource-link {
+            display: block;
+            padding: 0.75rem 0;
+            text-decoration: none;
+            color: var(--text);
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            border-bottom: 1px solid transparent;
+        }
+
+        .resource-link:hover {
+            color: var(--accent);
+            padding-left: 0.5rem;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: var(--text);
+            color: var(--bg);
+            padding: 10rem 3rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at center, rgba(255,77,0,0.1) 0%, transparent 70%);
+        }
+
+        .cta-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .cta-title {
+            font-family: 'Instrument Serif', serif;
+            font-size: clamp(3rem, 6vw, 5rem);
+            font-weight: 400;
+            margin-bottom: 2rem;
+            line-height: 1.1;
+        }
+
+        .cta-title em {
+            font-style: italic;
+            color: var(--accent);
+        }
+
+        .cta-text {
+            font-size: 1.1rem;
+            opacity: 0.7;
+            margin-bottom: 3rem;
+            line-height: 1.8;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 1rem;
+            background: var(--accent);
+            color: white;
+            padding: 1.25rem 2.5rem;
+            text-decoration: none;
+            font-size: 0.85rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            background: white;
+            color: var(--text);
+        }
+
+        .btn svg {
+            width: 20px;
+            height: 20px;
+            transition: transform 0.3s ease;
+        }
+
+        .btn:hover svg {
+            transform: translateX(5px);
+        }
+
+        /* Footer */
+        footer {
+            padding: 4rem 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid var(--border);
+        }
+
+        footer p {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .footer-links a {
+            font-size: 0.8rem;
+            color: var(--text);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent);
+        }
+
+        /* Checklist */
+        .checklist {
+            list-style: none;
+        }
+
+        .checklist li {
+            padding: 1rem 0;
+            padding-left: 2rem;
+            position: relative;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .checklist li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 1.35rem;
+            width: 10px;
+            height: 10px;
+            border: 1.5px solid var(--text);
+            transition: all 0.3s ease;
+        }
+
+        .checklist li:hover::before {
+            background: var(--accent);
+            border-color: var(--accent);
+        }
+
+        /* Horizontal scroll section */
+        .horizontal-section {
+            padding: 6rem 0;
+            overflow: hidden;
+        }
+
+        .horizontal-scroll {
+            display: flex;
+            gap: 2rem;
+            padding: 0 3rem;
+            animation: scrollX 40s linear infinite;
+        }
+
+        .horizontal-card {
+            flex-shrink: 0;
+            width: 350px;
+            background: white;
+            border: 1px solid var(--border);
+            padding: 2rem;
+        }
+
+        @keyframes scrollX {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .section-header {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .card-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .card-large, .card-medium, .card-small {
+                grid-column: span 1;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .project-card {
+                border-right: 1px solid var(--border);
+                border-bottom: none;
+            }
+
+            .project-card:last-child {
+                border-bottom: 1px solid var(--border);
+            }
+
+            .resources-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .resource-category:nth-child(2),
+            .resource-category:last-child {
+                border-right: 1px solid var(--border);
+            }
+
+            .hero-meta {
+                flex-wrap: wrap;
+                gap: 2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            header {
+                padding: 1rem 1.5rem;
+            }
+
+            section {
+                padding: 4rem 1.5rem;
+            }
+
+            .hero {
+                padding: 1.5rem;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .timeline {
+                padding-left: 0;
+            }
+
+            .timeline::before {
+                display: none;
+            }
+
+            .timeline-marker {
+                position: relative;
+                left: 0;
+                margin-bottom: 1rem;
+            }
+
+            .timeline-marker::before {
+                left: -15px;
+            }
+
+            .resources-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .resource-category {
+                border-right: 1px solid var(--border);
+            }
+
+            .cursor, .cursor-dot {
+                display: none;
+            }
+
+            footer {
+                flex-direction: column;
+                gap: 2rem;
+                text-align: center;
+            }
+        }
+
+        /* Scroll reveal animations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Split text animation */
+        .split-text {
+            overflow: hidden;
+        }
+
+        .split-text span {
+            display: inline-block;
+            transform: translateY(100%);
+            transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .split-text.active span {
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- Custom Cursor -->
+    <div class="cursor"></div>
+    <div class="cursor-dot"></div>
+
+    <!-- Header -->
+    <header>
+        <div class="logo">Docker + AI Guide</div>
+        <div class="nav-toggle" id="navToggle">
+            <span></span>
+            <span></span>
+        </div>
+    </header>
+
+    <!-- Navigation Panel -->
+    <div class="nav-panel" id="navPanel">
+        <div class="nav-close" id="navClose"></div>
+        <a href="#intro"><span>01</span>Introduction</a>
+        <a href="#prerequisites"><span>02</span>Prerequisites</a>
+        <a href="#phase1"><span>03</span>Foundations</a>
+        <a href="#phase2"><span>04</span>Real DevOps</a>
+        <a href="#phase3"><span>05</span>Production</a>
+        <a href="#ai-skills"><span>06</span>AI Skills</a>
+        <a href="#projects"><span>07</span>Portfolio</a>
+        <a href="#timeline"><span>08</span>Timeline</a>
+        <a href="#resources"><span>09</span>Resources</a>
+    </div>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="hero-bg-text">DOCKER</div>
+        <div class="hero-content">
+            <div class="hero-label">Complete Career Guide — March 2026</div>
+            <h1>Master <em>Docker</em> & AI to land your first DevOps role with <em>zero</em> experience</h1>
+            <div class="hero-meta">
+                <div class="hero-stat">
+                    <div class="hero-stat-value">$95–125K</div>
+                    <div class="hero-stat-label">Junior Salary US</div>
+                </div>
+                <div class="hero-stat">
+                    <div class="hero-stat-value">87%</div>
+                    <div class="hero-stat-label">Companies Using Docker</div>
+                </div>
+                <div class="hero-stat">
+                    <div class="hero-stat-value">3–6</div>
+                    <div class="hero-stat-label">Months to Job</div>
+                </div>
+                <div class="hero-stat">
+                    <div class="hero-stat-value">340%</div>
+                    <div class="hero-stat-label">Remote Jobs Increase</div>
+                </div>
+            </div>
+        </div>
+        <div class="scroll-indicator">Scroll to explore</div>
+    </section>
+
+    <!-- Marquee -->
+    <div class="marquee-wrapper">
+        <div class="marquee">
+            <div class="marquee-item">Docker <span></span> Kubernetes <span></span> AI/ML <span></span> DevOps <span></span> CI/CD <span></span> MLOps <span></span></div>
+            <div class="marquee-item">Docker <span></span> Kubernetes <span></span> AI/ML <span></span> DevOps <span></span> CI/CD <span></span> MLOps <span></span></div>
+        </div>
+    </div>
+
+    <!-- Introduction -->
+    <section id="intro">
+        <div class="section-number">01</div>
+        <div class="section-header reveal">
+            <h2 class="section-title">Why Docker + AI is your <em>fastest ticket</em> into DevOps in 2026</h2>
+            <p class="section-intro">The DevOps landscape has fundamentally shifted. Companies aren't looking for "3 years of Kubernetes experience" anymore. They need engineers who can containerize AI workloads and use AI tools to build faster.</p>
+        </div>
+
+        <div class="card-grid">
+            <div class="card card-large reveal">
+                <div class="card-number">01</div>
+                <div class="card-label">Market Reality</div>
+                <h3>What Changed Since 2024</h3>
+                <p>Docker Desktop AI Assistant launched August 2025, making containerization more accessible than ever. Docker Build Cloud is now standard at enterprises with 50x faster builds. Docker Scout AI auto-fixes 80% of vulnerabilities with one click. Every GenAI company needs DevOps engineers who understand LLM deployment.</p>
+                
+                <div class="tip">
+                    <div class="tip-label">Pro Tip 2026</div>
+                    Docker + AI skills create a "credibility multiplier." Your portfolio of 6 projects with live demos beats someone with 2 years of legacy experience maintaining old VMs.
+                </div>
+            </div>
+
+            <div class="card card-small reveal">
+                <div class="card-label">EU Market</div>
+                <h3>€65K–85K</h3>
+                <p>Average junior DevOps salary in EU markets. Remote positions often pay US rates.</p>
+            </div>
+
+            <div class="card card-small reveal">
+                <div class="card-label">Demand</div>
+                <h3>Every AI Company</h3>
+                <p>Needs someone who knows Docker. By learning both together, you become irreplaceable.</p>
+            </div>
+
+            <div class="card card-small reveal">
+                <div class="card-label">Remote Work</div>
+                <h3>340% Increase</h3>
+                <p>Remote DevOps jobs have exploded since 2024. Work from anywhere is the norm.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Prerequisites -->
+    <section id="prerequisites">
+        <div class="section-number">02</div>
+        <div class="section-header reveal">
+            <h2 class="section-title">Prerequisites <em>(Week 0)</em></h2>
+            <p class="section-intro">Don't skip this week. These foundations prevent 90% of beginner confusion and set you up for success.</p>
+        </div>
+
+        <div class="card-grid">
+            <div class="card card-medium reveal">
+                <div class="card-label">What You Need</div>
+                <h3>Before Starting Docker</h3>
+                <ul class="checklist">
+                    <li><strong>Linux Command Line Basics</strong> — cd, ls, mkdir, cp, mv, rm, chmod, grep, find (15 hours)</li>
+                    <li><strong>Git Fundamentals</strong> — clone, add, commit, push, pull, branch, merge (10 hours)</li>
+                    <li><strong>Basic Networking</strong> — IP addresses, ports, DNS, HTTP/HTTPS (8 hours)</li>
+                    <li><strong>Cloud Account Setup</strong> — AWS, GCP, Azure free tier accounts (2 hours)</li>
+                </ul>
+            </div>
+
+            <div class="card card-medium reveal">
+                <div class="card-label">Free Resources</div>
+                <h3>Week 0 Learning Path</h3>
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Skill</th>
+                                <th>Resource</th>
+                                <th>Time</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Linux CLI</td>
+                                <td>LinuxCommand.org + "The Linux Command Line" PDF</td>
+                                <td>15h</td>
+                            </tr>
+                            <tr>
+                                <td>Git</td>
+                                <td>Git-it Desktop App + GitHub Skills</td>
+                                <td>10h</td>
+                            </tr>
+                            <tr>
+                                <td>Networking</td>
+                                <td>Practical Networking YouTube (first 10 videos)</td>
+                                <td>8h</td>
+                            </tr>
+                            <tr>
+                                <td>Cloud Setup</td>
+                                <td>AWS/GCP/Azure Free Tier Registration</td>
+                                <td>2h</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="warning reveal">
+            <strong>Do NOT install Docker yet.</strong> Finish Week 0 completely. Understanding what happens "under the hood" prevents painful debugging later.
+        </div>
+    </section>
+
+    <!-- Phase 1 -->
+    <section id="phase1">
+        <div class="section-number">03</div>
+        <div class="section-header reveal">
+            <h2 class="section-title">Phase 1: Docker <em>Foundations</em> (Weeks 1–4)</h2>
+            <p class="section-intro">Installation on all OSes, images vs containers, Dockerfile best practices, and everything you need to build your first containerized applications.</p>
+        </div>
+
+        <div class="card-grid">
+            <div class="card card-large reveal">
+                <div class="card-label">Week 1</div>
+                <h3>Installation & Core Concepts</h3>
+                <p>Docker Desktop 4.28+ is recommended for beginners. Here's how to install on Linux:</p>
+                
+                <pre><code><span class="code-label">bash</span># Linux (Ubuntu/Debian)
+curl -fsSL https://get.docker.com -o get-docker.sh
+sudo sh get-docker.sh
+sudo usermod -aG docker $USER
+# Log out and back in
+
+# Verify installation
+docker --version
+# Should show: Docker version 25.0.3, build 4debf41
+
+# Start Docker Desktop with AI Assistant
+docker desktop start --enable-ai-assist</code></pre>
+
+                <div class="ai-hack">
+                    Docker Desktop's AI Assistant (launched Aug 2025) can explain every command you run. Enable it in Settings → AI Features → "Explain Docker Commands."
+                </div>
+            </div>
+
+            <div class="card card-small reveal">
+                <div class="card-label">Core Concepts</div>
+                <h3>Don't Memorize — Understand</h3>
+                <p><strong>Image</strong> = Recipe (blueprint)<br>
+                <strong>Container</strong> = Running instance<br>
+                <strong>Dockerfile</strong> = Build instructions<br>
+                <strong>Registry</strong> = Image storage</p>
+            </div>
+
+            <div class="card card-medium reveal">
+                <div class="card-label">Week 2</div>
+                <h3>Your First Dockerfile (2026 Best Practices)</h3>
+                <pre><code># Use specific version tags (never 'latest' in prod)
+FROM node:20.11-alpine3.19 AS base
+
+WORKDIR /app
+
+# Copy package files first (better layer caching)
+COPY package*.json ./
+
+RUN npm ci --only=production && \
+    npm cache clean --force
+
+COPY . .
+
+# Create non-root user (security best practice)
+RUN addgroup -g 1001 -S nodejs && \
+    adduser -S nodejs -u 1001
+
+USER nodejs
+
+EXPOSE 3000
+
+HEALTHCHECK --interval=30s --timeout=3s \
+  CMD node healthcheck.js || exit 1
+
+CMD ["node", "server.js"]</code></pre>
+            </div>
+
+            <div class="card card-medium reveal">
+                <div class="card-label">Week 3</div>
+                <h3>Essential Docker Commands</h3>
+                <pre><code># Build with BuildKit (default in 2026)
+docker build -t myapp:1.0 .
+
+# Build with AI-suggested optimizations
+docker build --ai-optimize -t myapp:1.0 .
+
+# Run a container
+docker run -d -p 8080:3000 --name myapp myapp:1.0
+
+# View logs
+docker logs -f myapp
+
+# Execute commands inside container
+docker exec -it myapp /bin/sh
+
+# Clean up everything
+docker system prune -a --volumes</code></pre>
+
+                <div class="tip">
+                    <div class="tip-label">Pro Tip 2026</div>
+                    Multi-stage builds are now standard practice. They reduce image size by 60-80%. Docker Scout will warn you if you're not using them.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Phase 2 -->
+    <section id="phase2">
+        <div class="section-number">04</div>
+        <div class="section-header reveal">
+            <h2 class="section-title">Phase 2: Docker for <em>Real DevOps</em> (Weeks 5–8)</h2>
+            <p class="section-intro">Docker Compose, multi-container apps, security scanning with Docker Scout, secrets management, and CI/CD integration.</p>
+        </div>
+
+        <div class="card-grid">
+            <div class="card card-large reveal">
+                <div class="card-label">Week 5</div>
+                <h3>Docker Compose v2 (Multi-Container Apps)</h3>
+                <pre><code>version: '3.9'
+
+services:
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    depends_on:
+      backend:
+        condition: service_healthy
+
+  backend:
+    build: ./backend
+    ports:
+      - "5000:5000"
+    environment:
+      - DATABASE_URL=postgresql://user:pass@db:5432/myapp
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5000/health"]
+      interval: 30s
+      timeout: 3s
+
+  db:
+    image: postgres:16-alpine
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+
+volumes:
+  postgres-data:</code></pre>
+            </div>
+
+            <div class="card card-medium reveal">
+                <div class="card-label">Week 6</div>
+                <h3>Security with Docker Scout</h3>
+                <pre><code># Enable Docker Scout
+docker scout enroll
+
+# Scan for vulnerabilities
+docker scout cves myapp:1.0
+
+# AI-powered fix recommendations
+docker scout recommendations myapp:1.0
+
+# Auto-fix critical vulnerabilities (NEW)
+docker scout quickview myapp:1.0 --auto-fix</code></pre>
+
+                <div class="tip">
+                    <div class="tip-label">Pro Tip 2026</div>
+                    Docker Scout now uses AI to prioritize CVEs based on your actual code usage, reducing false positives by 75%.
+                </div>
+            </div>
+
+            <div class="card card-medium reveal">
+                <div class="card-label">Week 8</div>
+                <h3>CI/CD with GitHub Actions</h3>
+                <pre><code>name: Docker Build & Deploy
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3
+    
+    - name: Build and scan
+      uses: docker/build-push-action@v5
+      with:
+        context: .
+        push: true
+        tags: ghcr.io/${{ github.repository }}:${{ github.sha }}
+    
+    - name: Docker Scout CVE Scan
+      uses: docker/scout-action@v1
+      with:
+        command: cves
+        only-severities: critical,high</code></pre>
+            </div>
+        </div>
+    </section>
+
+    <!-- Phase 3 -->
+    <section id="phase3">
+        <div class="section-number">05</div>
+        <div class="section-header reveal">
+            <h2 class="section-title">Phase 3: <em>Production</em> Mastery (Weeks 9–12)</h2>
+            <p class="section-intro">Image optimization, BuildKit advanced usage, Docker Build Cloud, rootless Docker, and monitoring with Prometheus + Grafana.</p>
+        </div>
+
+        <div class="card-grid">
+            <div class="card card-large reveal">
+                <div class="card-label">Week 9</div>
+                <h3>Image Optimization (2026 Techniques)</h3>
+                <pre><code># Multi-stage build with layer optimization
+FROM node:20-alpine AS builder
+WORKDIR /app
+COPY package*.json ./
+RUN npm ci
+COPY . .
+RUN npm run build && npm prune --production
+
+FROM node:20-alpine AS production
+RUN apk add --no-cache dumb-init
+WORKDIR /app
+COPY --from=builder /app/dist ./dist
+COPY --from=builder /app/node_modules ./node_modules
+USER node
+EXPOSE 3000
+CMD ["dumb-init", "node", "dist/server.js"]</code></pre>
+
+                <div class="ai-hack">
+                    Docker Build Cloud (launched 2025) can reduce build times from 10 minutes to 12 seconds. Free for up to 50 build minutes/month in 2026.
+                </div>
+            </div>
+
+            <div class="card card-medium reveal">
+                <div class="card-label">Week 12</div>
+                <h3>Monitoring with Prometheus + Grafana</h3>
+                <pre><code>services:
+  prometheus:
+    image: prom/prometheus:v2.48.0
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    ports:
+      - "9090:9090"
+
+  grafana:
+    image: grafana/grafana:10.2.0
+    ports:
+      - "3000:3000"
+    volumes:
+      - grafana-data:/var/lib/grafana
+
+  cadvisor:
+    image: gcr.io/cadvisor/cadvisor:v0.47.2
+    ports:
+      - "8080:8080"
+    volumes:
+      - /var/run:/var/run:ro
+      - /sys:/sys:ro</code></pre>
+            </div>
+
+            <div class="card card-small reveal">
+                <div class="card-label">Week 10</div>
+                <h3>Docker Build Cloud</h3>
+                <pre><code># Enable cloud builders
+docker buildx create \
+  --driver cloud yourorg/default
+
+# Build 50x faster
+docker buildx build \
+  --builder cloud-yourorg \
+  --platform linux/amd64,linux/arm64 \
+  -t myapp:latest --push .</code></pre>
+            </div>
+        </div>
+    </section>
+
+    <!-- AI Skills -->
+    <section id="ai-skills">
+        <div class="section-number">06</div>
+        <div class="section-header reveal">
+            <h2 class="section-title">The <em>AI Skill Stack</em> You MUST Pair with Docker</h2>
+            <p class="section-intro">In March 2026, every tech company is either building AI products or using AI to build faster. You need to be both.</p>
+        </div>
+
+        <div class="card-grid">
+            <div class="card card-large reveal">
+                <div class="card-label">AI-Assisted Development</div>
+                <h3>Tools for 10x Productivity</h3>
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Tool</th>
+                                <th>Cost</th>
+                                <th>Best For</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>GitHub Copilot</strong></td>
+                                <td>$10/mo (free for students)</td>
+                                <td>Inline code suggestions, Dockerfile generation</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Cursor AI</strong></td>
+                                <td>$20/mo</td>
+                                <td>Full file generation, debugging, refactoring</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Claude 3.7 Opus</strong></td>
+                                <td>Free tier available</td>
+                                <td>Explaining concepts, architecture design</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Docker Desktop AI</strong></td>
+                                <td>Included</td>
+                                <td>Command explanations, troubleshooting</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="card card-medium reveal">
+                <div class="card-label">LLM Deployment</div>
+                <h3>Running Ollama in Docker</h3>
+                <pre><code>services:
+  ollama:
+    image: ollama/ollama:latest
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama-models:/root/.ollama
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+
+  webui:
+    image: ghcr.io/open-webui/open-webui:main
+    ports:
+      - "8080:8080"
+    environment:
+      - OLLAMA_API_BASE_URL=http://ollama:11434/api</code></pre>
+
+                <div class="tip">
+                    <div class="tip-label">Pro Tip 2026</div>
+                    Learning to containerize LLMs makes you instantly valuable to AI startups. 73% of AI companies struggle with deployment.
+                </div>
+            </div>
+
+            <div class="card card-medium reveal">
+                <div class="card-label">Prompt Engineering</div>
+                <h3>Templates for Docker Tasks</h3>
+                <pre><code>Prompt 1: Dockerfile Generation
+"Create a production-ready Dockerfile for a 
+[language/framework] application with:
+- Multi-stage build
+- Non-root user
+- Health checks
+- Security best practices (March 2026)
+- Layer caching optimization"
+
+Prompt 2: Debugging
+"This Docker build is failing with error:
+[paste error]
+What's wrong and how do I fix it using 
+2026 best practices?"
+
+Prompt 3: Architecture
+"Generate docker-compose.yml for:
+- 3 microservices
+- Redis caching
+- PostgreSQL
+- Nginx reverse proxy
+- Prometheus + Grafana monitoring"</code></pre>
+
+                <div class="ai-hack">
+                    This single prompt generates 1,000+ lines of working code in 30 seconds. You learn by reading and modifying it — 10x faster than traditional tutorials.
+                </div>
+            </div>
+        </div>
+
+        <div class="card reveal" style="margin-top: 2rem;">
+            <div class="card-label">Why This Combination Works</div>
+            <h3>Traditional Candidate vs You</h3>
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Traditional Candidate</th>
+                            <th>You (Docker + AI Skills)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>"2 years maintaining legacy systems"</td>
+                            <td>Built 6 production-ready projects with modern stack</td>
+                        </tr>
+                        <tr>
+                            <td>Learned Docker from 2022 tutorials</td>
+                            <td>Using Docker Scout AI, Build Cloud, latest security</td>
+                        </tr>
+                        <tr>
+                            <td>No AI/ML deployment experience</td>
+                            <td>Can deploy LLMs, RAG apps, ML pipelines</td>
+                        </tr>
+                        <tr>
+                            <td>Writes code manually</td>
+                            <td>Uses AI to work 10x faster, focuses on architecture</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects -->
+    <section id="projects">
+        <div class="section-number">07</div>
+        <div class="section-header reveal">
+            <h2 class="section-title">Portfolio <em>Projects</em> That Get You Hired</h2>
+            <p class="section-intro">Build these 6 projects in order. Each teaches new skills and demonstrates hireable competence. Deploy every project with a live demo URL.</p>
+        </div>
+
+        <div class="projects-grid reveal">
+            <div class="project-card">
+                <div class="project-number">01</div>
+                <div class="project-title">Containerized Portfolio + Blog</div>
+                <div class="project-stack">Next.js • PostgreSQL • Redis • Nginx</div>
+                <div class="project-desc">Full-stack app with AI-powered search using OpenAI embeddings. Deploy to Railway or Render free tier.</div>
+            </div>
+            <div class="project-card">
+                <div class="project-number">02</div>
+                <div class="project-title">Local LLM Chat Application</div>
+                <div class="project-stack">Ollama • Open WebUI • ChromaDB</div>
+                <div class="project-desc">RAG with your own documents. Shows you understand LLM deployment — the #1 skill AI companies need.</div>
+            </div>
+            <div class="project-card">
+                <div class="project-number">03</div>
+                <div class="project-title">Microservices E-Commerce</div>
+                <div class="project-stack">4 Services • API Gateway • Redis</div>
+                <div class="project-desc">Service mesh, inter-service communication, secrets. AI product recommendations using embeddings.</div>
+            </div>
+        </div>
+
+        <div class="projects-grid reveal" style="margin-top: 0; border-top: none;">
+            <div class="project-card" style="border-top: none;">
+                <div class="project-number">04</div>
+                <div class="project-title">Complete CI/CD Pipeline</div>
+                <div class="project-stack">GitHub Actions • Docker • Scout • ECS</div>
+                <div class="project-desc">Build optimization, multi-stage builds, security scanning. AI-generated tests using GitHub Copilot.</div>
+            </div>
+            <div class="project-card" style="border-top: none;">
+                <div class="project-number">05</div>
+                <div class="project-title">Monitoring & Observability</div>
+                <div class="project-stack">Prometheus • Grafana • Loki • Tempo</div>
+                <div class="project-desc">Advanced networking, persistent storage, AI anomaly detection alerts. Shows senior-level thinking.</div>
+            </div>
+            <div class="project-card" style="border-top: none;">
+                <div class="project-number">06</div>
+                <div class="project-title">MLOps Platform (Capstone)</div>
+                <div class="project-stack">MLflow • Airflow • Jupyter • Seldon</div>
+                <div class="project-desc">Complete ML pipeline from training to deployment. This project alone can get you hired at FAANG.</div>
+            </div>
+        </div>
+
+        <div class="card reveal" style="margin-top: 3rem;">
+            <div class="card-label">GitHub Structure</div>
+            <h3>Use This Template</h3>
+            <pre><code>project-name/
+├── .github/
+│   └── workflows/
+│       ├── build.yml
+│       └── deploy.yml
+├── services/
+│   ├── backend/
+│   │   └── Dockerfile
+│   └── frontend/
+│       └── Dockerfile
+├── monitoring/
+│   ├── prometheus/
+│   └── grafana/
+├── docker-compose.yml
+├── docker-compose.prod.yml
+├── .dockerignore
+├── README.md          ← MOST IMPORTANT!
+└── docs/
+    ├── ARCHITECTURE.md
+    └── SCREENSHOTS/</code></pre>
+
+            <div class="tip">
+                <div class="tip-label">Pro Tip 2026</div>
+                The README is more important than the code. Recruiters spend 30 seconds on your GitHub — make those 30 seconds count with screenshots, live demo links, and clear explanations.
+            </div>
+        </div>
+    </section>
+
+    <!-- Timeline -->
+    <section id="timeline">
+        <div class="section-number">08</div>
+        <div class="section-header reveal">
+            <h2 class="section-title">3–6 Month <em>Mastery</em> Timeline</h2>
+            <p class="section-intro">Week-by-week schedule, daily study hours, milestone checklist, and "first job in 90–180 days" roadmap.</p>
+        </div>
+
+        <div class="timeline reveal">
+            <div class="timeline-item">
+                <div class="timeline-marker">Month 1</div>
+                <div class="timeline-content">
+                    <h4>Foundations + First Projects</h4>
+                    <p><strong>Week 1:</strong> Prerequisites (Linux, Git, Networking) — 25 hours<br>
+                    <strong>Week 2:</strong> Docker basics + first Dockerfile — 20 hours<br>
+                    <strong>Week 3:</strong> Volumes, networks, Compose — 20 hours<br>
+                    <strong>Week 4:</strong> Start Project #1 (Portfolio site) — 25 hours</p>
+                    <p style="margin-top: 1rem; color: var(--text-muted);"><em>Total: ~90 hours (3 hours/day weekdays, 5 hours/day weekends)</em></p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-marker">Month 2</div>
+                <div class="timeline-content">
+                    <h4>Real DevOps + AI Integration</h4>
+                    <p><strong>Week 5:</strong> Docker Compose mastery — 15 hours<br>
+                    <strong>Week 6:</strong> Security + Scout + secrets — 15 hours<br>
+                    <strong>Week 7:</strong> CI/CD with GitHub Actions — 20 hours<br>
+                    <strong>Week 8:</strong> Finish Project #1, start Project #2 — 30 hours</p>
+                    <ul class="checklist" style="margin-top: 1rem;">
+                        <li>Project #1 deployed with live URL</li>
+                        <li>First CI/CD pipeline working</li>
+                        <li>Started learning AI tools (Copilot/Cursor)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-marker">Month 3</div>
+                <div class="timeline-content">
+                    <h4>Production Skills + Certification</h4>
+                    <p><strong>Week 9:</strong> Image optimization + BuildKit — 15 hours<br>
+                    <strong>Week 10:</strong> Monitoring stack — 20 hours<br>
+                    <strong>Week 11:</strong> Complete Project #2, start #3 — 25 hours<br>
+                    <strong>Week 12:</strong> DCA exam prep + take exam — 20 hours</p>
+                    <ul class="checklist" style="margin-top: 1rem;">
+                        <li>Docker Certified Associate (DCA) ✓</li>
+                        <li>2 projects deployed with monitoring</li>
+                        <li>LinkedIn optimized, resume updated</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-marker">Month 4-6</div>
+                <div class="timeline-content">
+                    <h4>Advanced Projects + Job Hunt</h4>
+                    <p>Complete remaining projects, apply to 10-15 jobs per week, practice interviews, attend meetups, contribute to open source.</p>
+                    <ul class="checklist" style="margin-top: 1rem;">
+                        <li>6 portfolio projects live</li>
+                        <li>100+ applications submitted</li>
+                        <li>10+ first-round interviews</li>
+                        <li>Job offer received! 🎉</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="tip reveal" style="margin-top: 3rem;">
+            <div class="tip-label">Pro Tip 2026</div>
+            Start applying at Month 3 even if you feel "not ready." The interview process takes 4-8 weeks. You'll keep learning while interviewing.
+        </div>
+    </section>
+
+    <!-- Resources -->
+    <section id="resources">
+        <div class="section-number">09</div>
+        <div class="section-header reveal">
+            <h2 class="section-title">Resources <em>Appendix</em> (2026 Edition)</h2>
+            <p class="section-intro">Curated list of the best free and paid courses, books, YouTube channels, Discord communities, and tools — all verified current.</p>
+        </div>
+
+        <div class="resources-grid reveal">
+            <div class="resource-category">
+                <h4>Documentation</h4>
+                <a href="#" class="resource-link">Docker Official Docs</a>
+                <a href="#" class="resource-link">Docker Scout Docs</a>
+                <a href="#" class="resource-link">Docker Build Cloud</a>
+                <a href="#" class="resource-link">Desktop AI Assistant Guide</a>
+            </div>
+            <div class="resource-category">
+                <h4>Courses</h4>
+                <a href="#" class="resource-link">Docker Mastery 2026 (Udemy)</a>
+                <a href="#" class="resource-link">Docker Deep Dive (A Cloud Guru)</a>
+                <a href="#" class="resource-link">MLOps with Docker (DeepLearning.AI)</a>
+                <a href="#" class="resource-link">Docker Official Training</a>
+            </div>
+            <div class="resource-category">
+                <h4>YouTube</h4>
+                <a href="#" class="resource-link">TechWorld with Nana</a>
+                <a href="#" class="resource-link">NetworkChuck</a>
+                <a href="#" class="resource-link">Docker Official</a>
+                <a href="#" class="resource-link">Fireship</a>
+            </div>
+            <div class="resource-category">
+                <h4>Communities</h4>
+                <a href="#" class="resource-link">Docker Community Slack</a>
+                <a href="#" class="resource-link">r/devops</a>
+                <a href="#" class="resource-link">MLOps Discord</a>
+                <a href="#" class="resource-link">DevOps Meetups</a>
+            </div>
+        </div>
+
+        <div class="card-grid" style="margin-top: 3rem;">
+            <div class="card card-medium reveal">
+                <div class="card-label">Certifications</div>
+                <h3>What Actually Matters</h3>
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Certification</th>
+                                <th>Cost</th>
+                                <th>Prep Time</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Docker Certified Associate (DCA)</td>
+                                <td>$195</td>
+                                <td>40-60 hours</td>
+                            </tr>
+                            <tr>
+                                <td>AWS Cloud Practitioner</td>
+                                <td>$100</td>
+                                <td>20-30 hours</td>
+                            </tr>
+                            <tr>
+                                <td>GitHub Actions Certification</td>
+                                <td>$99</td>
+                                <td>15-20 hours</td>
+                            </tr>
+                            <tr>
+                                <td>MLOps Professional (Linux Foundation)</td>
+                                <td>$395</td>
+                                <td>60-80 hours</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="card card-medium reveal">
+                <div class="card-label">Books (2026 Editions)</div>
+                <h3>Recommended Reading</h3>
+                <ul class="checklist">
+                    <li>"Docker Deep Dive" by Nigel Poulton — Best technical deep dive</li>
+                    <li>"The DevOps Handbook" 2nd Edition — Philosophy + practice</li>
+                    <li>"Docker in Practice" 3rd Edition — Real-world patterns</li>
+                    <li>"AI Engineering" by Chip Huyen — ML deployment including Docker</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-section">
+        <div class="cta-content reveal">
+            <h2 class="cta-title">The only thing stopping you is <em>starting</em></h2>
+            <p class="cta-text">In 6 months, you'll either have a DevOps job at an amazing company — or still be thinking about starting. The difference is what you do in the next 24 hours.</p>
+            <a href="#prerequisites" class="btn">
+                Start Week 0 Now
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M5 12h14M12 5l7 7-7 7"/>
+                </svg>
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>Docker + AI DevOps Career Guide — March 2026</p>
+        <div class="footer-links">
+            <a href="#intro">Introduction</a>
+            <a href="#projects">Projects</a>
+            <a href="#resources">Resources</a>
+        </div>
+    </footer>
+
+    <script>
+        // Custom cursor
+        const cursor = document.querySelector('.cursor');
+        const cursorDot = document.querySelector('.cursor-dot');
+        
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+            cursorDot.style.left = e.clientX + 'px';
+            cursorDot.style.top = e.clientY + 'px';
+        });
+
+        // Cursor hover effect
+        const hoverElements = document.querySelectorAll('a, button, .project-card, .card, .nav-toggle, .nav-close');
+        hoverElements.forEach(el => {
+            el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+            el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+        });
+
+        // Navigation panel
+        const navToggle = document.getElementById('navToggle');
+        const navPanel = document.getElementById('navPanel');
+        const navClose = document.getElementById('navClose');
+        const navLinks = navPanel.querySelectorAll('a');
+
+        navToggle.addEventListener('click', () => {
+            navPanel.classList.add('active');
+        });
+
+        navClose.addEventListener('click', () => {
+            navPanel.classList.remove('active');
+        });
+
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                navPanel.classList.remove('active');
+            });
+        });
+
+        // Scroll reveal
+        const revealElements = document.querySelectorAll('.reveal');
+        
+        const revealOnScroll = () => {
+            revealElements.forEach(el => {
+                const elementTop = el.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+                
+                if (elementTop < windowHeight - 100) {
+                    el.classList.add('active');
+                }
+            });
+        };
+
+        window.addEventListener('scroll', revealOnScroll);
+        window.addEventListener('load', revealOnScroll);
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Parallax effect on hero
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const hero = document.querySelector('.hero-bg-text');
+            if (hero) {
+                hero.style.transform = `translate(-50%, calc(-50% + ${scrolled * 0.3}px))`;
+            }
+        });
+    </script>
+</body>
+</html>
