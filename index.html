@@ -41,7 +41,6 @@
             cursor: default;
         }
 
-        /* Grain overlay */
         body::before {
             content: '';
             position: fixed;
@@ -55,7 +54,6 @@
             background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
         }
 
-        /* Custom cursor */
         .cursor {
             width: 20px;
             height: 20px;
@@ -85,7 +83,6 @@
             transform: translate(-50%, -50%);
         }
 
-        /* Header */
         header {
             position: fixed;
             top: 0;
@@ -121,7 +118,6 @@
             transition: all 0.3s ease;
         }
 
-        /* Navigation Panel */
         .nav-panel {
             position: fixed;
             top: 0;
@@ -189,7 +185,6 @@
         .nav-close::before { transform: rotate(45deg); }
         .nav-close::after { transform: rotate(-45deg); }
 
-        /* Hero */
         .hero {
             min-height: 100vh;
             display: flex;
@@ -302,7 +297,6 @@
             50% { opacity: 0.3; }
         }
 
-        /* Section styling */
         section {
             padding: 8rem 3rem;
             position: relative;
@@ -342,7 +336,6 @@
             align-self: end;
         }
 
-        /* Marquee */
         .marquee-wrapper {
             overflow: hidden;
             padding: 4rem 0;
@@ -381,7 +374,6 @@
             100% { transform: translateX(-50%); }
         }
 
-        /* Card Grid */
         .card-grid {
             display: grid;
             grid-template-columns: repeat(12, 1fr);
@@ -456,7 +448,6 @@
             line-height: 1.7;
         }
 
-        /* Pro Tip styling */
         .tip {
             background: var(--text);
             color: var(--bg);
@@ -482,7 +473,6 @@
             margin-bottom: 1rem;
         }
 
-        /* AI Hack styling */
         .ai-hack {
             background: linear-gradient(135deg, #0066FF 0%, #00D4FF 100%);
             color: white;
@@ -502,7 +492,6 @@
             opacity: 0.1;
         }
 
-        /* Warning styling */
         .warning {
             background: transparent;
             border: 2px solid var(--accent);
@@ -523,52 +512,248 @@
             font-size: 1.2rem;
         }
 
-        /* Code blocks */
-        pre {
-            background: #1a1a1a;
-            color: #f0f0f0;
-            padding: 2rem;
-            overflow-x: auto;
-            font-family: 'SF Mono', 'Fira Code', monospace;
-            font-size: 0.85rem;
-            line-height: 1.8;
-            margin: 2rem 0;
-            border: none;
-            position: relative;
+        /* ── VSCode-style code blocks ───────────────────────────── */
+        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap');
+
+        :root {
+            /* VSCode Dark+ token colors */
+            --vsc-bg:          #1e1e1e;
+            --vsc-bg-header:   #2d2d2d;
+            --vsc-border:      #3e3e42;
+            --vsc-gutter:      #1e1e1e;
+            --vsc-ln:          #4e4e57;
+            --vsc-scrollbar:   #424242;
+
+            --vsc-plain:       #d4d4d4;
+            --vsc-comment:     #6a9955;
+            --vsc-keyword:     #569cd6;
+            --vsc-string:      #ce9178;
+            --vsc-number:      #b5cea8;
+            --vsc-function:    #dcdcaa;
+            --vsc-type:        #4ec9b0;
+            --vsc-operator:    #d4d4d4;
+            --vsc-property:    #9cdcfe;
+            --vsc-punctuation: #d4d4d4;
+            --vsc-variable:    #9cdcfe;
+            --vsc-constant:    #4fc1ff;
+            --vsc-tag:         #569cd6;
+            --vsc-attr:        #9cdcfe;
+            --vsc-value:       #ce9178;
         }
 
-        pre::before {
-            content: '';
-            position: absolute;
-            top: 1rem;
-            left: 1rem;
+        .vsc-block {
+            margin: 1.75rem 0;
+            border-radius: 6px;
+            overflow: hidden;
+            border: 1px solid var(--vsc-border);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.35);
+            font-family: 'JetBrains Mono', 'Fira Code', 'SF Mono', monospace;
+            font-size: 0.8rem;
+            line-height: 1.75;
+        }
+
+        /* Title bar */
+        .vsc-titlebar {
+            background: var(--vsc-bg-header);
+            padding: 0 1rem;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid var(--vsc-border);
+            user-select: none;
+        }
+
+        .vsc-dots {
             display: flex;
             gap: 6px;
+            align-items: center;
         }
 
-        code {
-            background: rgba(26, 26, 26, 0.05);
-            padding: 0.2rem 0.5rem;
-            font-family: 'SF Mono', 'Fira Code', monospace;
-            font-size: 0.85em;
+        .vsc-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+        .vsc-dot-red    { background: #ff5f57; }
+        .vsc-dot-yellow { background: #febc2e; }
+        .vsc-dot-green  { background: #28c840; }
+
+        .vsc-filename {
+            color: #cccccc;
+            font-size: 0.72rem;
+            letter-spacing: 0.02em;
+            flex: 1;
+            text-align: center;
+            margin: 0 1rem;
         }
 
-        pre code {
-            background: none;
-            padding: 0;
-        }
-
-        .code-label {
-            position: absolute;
-            top: 0.75rem;
-            right: 1rem;
+        .vsc-lang-badge {
             font-size: 0.65rem;
-            letter-spacing: 0.1em;
+            color: #888;
+            letter-spacing: 0.05em;
             text-transform: uppercase;
-            color: #666;
         }
 
-        /* Timeline */
+        /* Tab bar */
+        .vsc-tabs {
+            background: #252526;
+            display: flex;
+            align-items: stretch;
+            border-bottom: 1px solid var(--vsc-border);
+            overflow-x: auto;
+        }
+
+        .vsc-tab {
+            padding: 0 1rem;
+            height: 35px;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.72rem;
+            color: #969696;
+            border-right: 1px solid var(--vsc-border);
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        .vsc-tab.active {
+            background: var(--vsc-bg);
+            color: #ffffff;
+            border-top: 1px solid #007acc;
+        }
+
+        .vsc-tab-icon {
+            width: 13px;
+            height: 13px;
+            border-radius: 2px;
+            flex-shrink: 0;
+        }
+
+        /* Body with line numbers */
+        .vsc-body {
+            background: var(--vsc-bg);
+            display: flex;
+            overflow-x: auto;
+        }
+
+        .vsc-gutter {
+            background: var(--vsc-gutter);
+            padding: 1.1rem 0.75rem 1.1rem 1rem;
+            text-align: right;
+            min-width: 3rem;
+            user-select: none;
+            flex-shrink: 0;
+            border-right: 1px solid rgba(255,255,255,0.04);
+        }
+
+        .vsc-ln {
+            display: block;
+            color: var(--vsc-ln);
+            font-size: 0.75rem;
+            line-height: 1.75;
+        }
+
+        .vsc-code {
+            padding: 1.1rem 1.5rem;
+            overflow-x: auto;
+            flex: 1;
+            min-width: 0;
+        }
+
+        .vsc-code pre {
+            margin: 0;
+            background: none;
+            border: none;
+            padding: 0;
+            box-shadow: none;
+            font-family: inherit;
+            font-size: inherit;
+            line-height: inherit;
+            color: var(--vsc-plain);
+            white-space: pre;
+        }
+
+        /* Copy button */
+        .vsc-copy-btn {
+            position: absolute;
+            top: 44px;
+            right: 10px;
+            background: #2d2d2d;
+            border: 1px solid var(--vsc-border);
+            color: #888;
+            border-radius: 4px;
+            padding: 4px 10px;
+            font-size: 0.65rem;
+            font-family: 'JetBrains Mono', monospace;
+            cursor: pointer;
+            opacity: 0;
+            transition: opacity 0.2s, color 0.2s;
+            letter-spacing: 0.05em;
+        }
+
+        .vsc-block:hover .vsc-copy-btn {
+            opacity: 1;
+        }
+
+        .vsc-copy-btn:hover {
+            color: #fff;
+            background: #3a3a3a;
+        }
+
+        .vsc-block { position: relative; }
+
+        /* Status bar */
+        .vsc-statusbar {
+            background: #007acc;
+            padding: 2px 1rem;
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        .vsc-status-item {
+            font-size: 0.65rem;
+            color: rgba(255,255,255,0.9);
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        /* ── Syntax token classes ────────────────────────────────── */
+        .t-comment    { color: var(--vsc-comment); font-style: italic; }
+        .t-keyword    { color: var(--vsc-keyword); }
+        .t-string     { color: var(--vsc-string); }
+        .t-number     { color: var(--vsc-number); }
+        .t-function   { color: var(--vsc-function); }
+        .t-type       { color: var(--vsc-type); }
+        .t-operator   { color: var(--vsc-operator); }
+        .t-property   { color: var(--vsc-property); }
+        .t-variable   { color: var(--vsc-variable); }
+        .t-constant   { color: var(--vsc-constant); }
+        .t-tag        { color: var(--vsc-tag); }
+        .t-attr       { color: var(--vsc-attr); }
+        .t-value      { color: var(--vsc-value); }
+        .t-plain      { color: var(--vsc-plain); }
+        .t-punct      { color: var(--vsc-punctuation); }
+        .t-env        { color: #4fc1ff; }
+        .t-flag       { color: #569cd6; }
+        .t-cmd        { color: #dcdcaa; }
+        .t-image      { color: #4ec9b0; }
+        .t-path       { color: #ce9178; }
+        .t-section    { color: #c586c0; font-weight: 500; }
+        .t-key        { color: #9cdcfe; }
+
+        /* inline code (not in blocks) */
+        code {
+            background: rgba(26, 26, 26, 0.07);
+            padding: 0.15rem 0.45rem;
+            border-radius: 3px;
+            font-family: 'JetBrains Mono', 'Fira Code', monospace;
+            font-size: 0.82em;
+            border: 1px solid rgba(0,0,0,0.08);
+        }
+
         .timeline {
             position: relative;
             padding-left: 100px;
@@ -625,7 +810,6 @@
             margin-bottom: 1rem;
         }
 
-        /* Project cards */
         .projects-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -682,7 +866,6 @@
             opacity: 0.8;
         }
 
-        /* Table styling */
         .table-wrapper {
             overflow-x: auto;
             margin: 2rem 0;
@@ -719,7 +902,6 @@
             background: rgba(255, 77, 0, 0.03);
         }
 
-        /* Resources section */
         .resources-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -761,7 +943,6 @@
             padding-left: 0.5rem;
         }
 
-        /* CTA Section */
         .cta-section {
             background: var(--text);
             color: var(--bg);
@@ -838,7 +1019,6 @@
             transform: translateX(5px);
         }
 
-        /* Footer */
         footer {
             padding: 4rem 3rem;
             display: flex;
@@ -868,7 +1048,6 @@
             color: var(--accent);
         }
 
-        /* Checklist */
         .checklist {
             list-style: none;
         }
@@ -896,33 +1075,6 @@
             border-color: var(--accent);
         }
 
-        /* Horizontal scroll section */
-        .horizontal-section {
-            padding: 6rem 0;
-            overflow: hidden;
-        }
-
-        .horizontal-scroll {
-            display: flex;
-            gap: 2rem;
-            padding: 0 3rem;
-            animation: scrollX 40s linear infinite;
-        }
-
-        .horizontal-card {
-            flex-shrink: 0;
-            width: 350px;
-            background: white;
-            border: 1px solid var(--border);
-            padding: 2rem;
-        }
-
-        @keyframes scrollX {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
-        }
-
-        /* Responsive */
         @media (max-width: 1024px) {
             .section-header {
                 grid-template-columns: 1fr;
@@ -1019,7 +1171,6 @@
             }
         }
 
-        /* Scroll reveal animations */
         .reveal {
             opacity: 0;
             transform: translateY(40px);
@@ -1030,29 +1181,12 @@
             opacity: 1;
             transform: translateY(0);
         }
-
-        /* Split text animation */
-        .split-text {
-            overflow: hidden;
-        }
-
-        .split-text span {
-            display: inline-block;
-            transform: translateY(100%);
-            transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
-        }
-
-        .split-text.active span {
-            transform: translateY(0);
-        }
     </style>
 </head>
 <body>
-    <!-- Custom Cursor -->
     <div class="cursor"></div>
     <div class="cursor-dot"></div>
 
-    <!-- Header -->
     <header>
         <div class="logo">Docker + AI Guide</div>
         <div class="nav-toggle" id="navToggle">
@@ -1061,7 +1195,6 @@
         </div>
     </header>
 
-    <!-- Navigation Panel -->
     <div class="nav-panel" id="navPanel">
         <div class="nav-close" id="navClose"></div>
         <a href="#intro"><span>01</span>Introduction</a>
@@ -1075,7 +1208,6 @@
         <a href="#resources"><span>09</span>Resources</a>
     </div>
 
-    <!-- Hero -->
     <section class="hero">
         <div class="hero-bg-text">DOCKER</div>
         <div class="hero-content">
@@ -1103,7 +1235,6 @@
         <div class="scroll-indicator">Scroll to explore</div>
     </section>
 
-    <!-- Marquee -->
     <div class="marquee-wrapper">
         <div class="marquee">
             <div class="marquee-item">Docker <span></span> Kubernetes <span></span> AI/ML <span></span> DevOps <span></span> CI/CD <span></span> MLOps <span></span></div>
@@ -1124,8 +1255,9 @@
                 <div class="card-number">01</div>
                 <div class="card-label">Market Reality</div>
                 <h3>What Changed Since 2024</h3>
-                <p>Docker Desktop AI Assistant launched August 2025, making containerization more accessible than ever. Docker Build Cloud is now standard at enterprises with 50x faster builds. Docker Scout AI auto-fixes 80% of vulnerabilities with one click. Every GenAI company needs DevOps engineers who understand LLM deployment.</p>
-                
+                <!-- FIXED: Replaced fabricated feature claims with accurate 2026 Docker features -->
+                <p>Docker Desktop 4.61 (Feb 2026) ships Gordon — Docker's purpose-built AI agent — available via <code>docker ai</code> in your terminal or the Desktop sidebar. Docker Compose v5 launched with a new official Go SDK. Docker Build Cloud is now widely used at enterprises for faster multi-platform builds. Docker Scout provides AI-prioritized CVE analysis focusing on reachable vulnerabilities. Every GenAI company needs DevOps engineers who understand LLM deployment. Docker Model Runner (GA in 2026) lets you run LLMs locally inside Docker.</p>
+
                 <div class="tip">
                     <div class="tip-label">Pro Tip 2026</div>
                     Docker + AI skills create a "credibility multiplier." Your portfolio of 6 projects with live demos beats someone with 2 years of legacy experience maintaining old VMs.
@@ -1228,23 +1360,53 @@
             <div class="card card-large reveal">
                 <div class="card-label">Week 1</div>
                 <h3>Installation & Core Concepts</h3>
-                <p>Docker Desktop 4.28+ is recommended for beginners. Here's how to install on Linux:</p>
-                
-                <pre><code><span class="code-label">bash</span># Linux (Ubuntu/Debian)
-curl -fsSL https://get.docker.com -o get-docker.sh
-sudo sh get-docker.sh
-sudo usermod -aG docker $USER
-# Log out and back in
+                <!-- FIXED: Updated Docker Desktop version to 4.61, fixed docker version string to v29.x, removed fake --enable-ai-assist flag -->
+                <p>Docker Desktop 4.61+ is recommended for beginners. Here's how to install on Linux:</p>
 
-# Verify installation
-docker --version
-# Should show: Docker version 25.0.3, build 4debf41
+                <div class="vsc-block">
+                    <div class="vsc-titlebar">
+                        <div class="vsc-dots"><span class="vsc-dot vsc-dot-red"></span><span class="vsc-dot vsc-dot-yellow"></span><span class="vsc-dot vsc-dot-green"></span></div>
+                        <span class="vsc-filename">install-docker.sh</span>
+                        <span class="vsc-lang-badge">bash</span>
+                    </div>
+                    <div class="vsc-tabs">
+                        <div class="vsc-tab active"><img class="vsc-tab-icon" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' rx='2' fill='%234d9375'/%3E%3C/svg%3E">install-docker.sh</div>
+                    </div>
+                    <button class="vsc-copy-btn" onclick="copyCode(this)">copy</button>
+                    <div class="vsc-body">
+                        <div class="vsc-gutter">
+                            <span class="vsc-ln">1</span><span class="vsc-ln">2</span><span class="vsc-ln">3</span><span class="vsc-ln">4</span><span class="vsc-ln">5</span><span class="vsc-ln">6</span><span class="vsc-ln">7</span><span class="vsc-ln">8</span><span class="vsc-ln">9</span><span class="vsc-ln">10</span><span class="vsc-ln">11</span><span class="vsc-ln">12</span><span class="vsc-ln">13</span><span class="vsc-ln">14</span><span class="vsc-ln">15</span><span class="vsc-ln">16</span><span class="vsc-ln">17</span><span class="vsc-ln">18</span>
+                        </div>
+                        <div class="vsc-code"><pre><span class="t-comment">#!/bin/bash</span>
+<span class="t-comment"># Install Docker Engine on Ubuntu/Debian</span>
+<span class="t-cmd">curl</span> <span class="t-flag">-fsSL</span> <span class="t-string">https://get.docker.com</span> <span class="t-flag">-o</span> get-docker.sh
+<span class="t-cmd">sudo</span> sh get-docker.sh
+<span class="t-cmd">sudo</span> usermod <span class="t-flag">-aG</span> docker <span class="t-env">$USER</span>
+<span class="t-comment"># Log out and back in for group change to take effect</span>
+newgrp docker
 
-# Start Docker Desktop with AI Assistant
-docker desktop start --enable-ai-assist</code></pre>
+<span class="t-comment"># Verify — should show: Docker version 29.x.x</span>
+<span class="t-cmd">docker</span> <span class="t-flag">--version</span>
+<span class="t-cmd">docker</span> compose version
+
+<span class="t-comment"># Confirm BuildKit is active (default in 2026)</span>
+<span class="t-env">DOCKER_BUILDKIT</span>=<span class="t-number">1</span> <span class="t-cmd">docker</span> build <span class="t-flag">--help</span>
+
+<span class="t-comment"># Launch Gordon — Docker's AI agent (Docker Desktop 4.61+)</span>
+<span class="t-comment"># Option A: click "Ask Gordon" in the Docker Desktop sidebar</span>
+<span class="t-comment"># Option B: CLI</span>
+<span class="t-cmd">docker</span> ai</pre></div>
+                    </div>
+                    <div class="vsc-statusbar">
+                        <span class="vsc-status-item">Bash</span>
+                        <span class="vsc-status-item">UTF-8</span>
+                        <span class="vsc-status-item">LF</span>
+                    </div>
+                </div>
 
                 <div class="ai-hack">
-                    Docker Desktop's AI Assistant (launched Aug 2025) can explain every command you run. Enable it in Settings → AI Features → "Explain Docker Commands."
+                    <!-- FIXED: Corrected AI feature name and description. It's "Gordon" (docker ai), not "Docker Desktop AI Assistant". The command is "docker ai", not "docker desktop start --enable-ai-assist". -->
+                    Gordon is Docker's purpose-built AI agent, available in Docker Desktop 4.61 (beta). It has access to your shell, filesystem, and Docker CLI. Ask it to debug containers, generate Dockerfiles, or run cleanup tasks — it proposes every action before executing. Launch it via <code>docker ai</code> in your terminal or from the Docker Desktop sidebar.
                 </div>
             </div>
 
@@ -1260,57 +1422,115 @@ docker desktop start --enable-ai-assist</code></pre>
             <div class="card card-medium reveal">
                 <div class="card-label">Week 2</div>
                 <h3>Your First Dockerfile (2026 Best Practices)</h3>
-                <pre><code># Use specific version tags (never 'latest' in prod)
-FROM node:20.11-alpine3.19 AS base
+                <!-- FIXED: Updated Node base image from node:20.11-alpine3.19 to node:22-alpine (Node 22 is LTS in 2026) -->
+                <div class="vsc-block">
+                    <div class="vsc-titlebar">
+                        <div class="vsc-dots"><span class="vsc-dot vsc-dot-red"></span><span class="vsc-dot vsc-dot-yellow"></span><span class="vsc-dot vsc-dot-green"></span></div>
+                        <span class="vsc-filename">Dockerfile</span>
+                        <span class="vsc-lang-badge">dockerfile</span>
+                    </div>
+                    <div class="vsc-tabs">
+                        <div class="vsc-tab active"><img class="vsc-tab-icon" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' rx='2' fill='%230db7ed'/%3E%3C/svg%3E">Dockerfile</div>
+                        <div class="vsc-tab"><img class="vsc-tab-icon" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' rx='2' fill='%23555'/%3E%3C/svg%3E">.dockerignore</div>
+                    </div>
+                    <button class="vsc-copy-btn" onclick="copyCode(this)">copy</button>
+                    <div class="vsc-body">
+                        <div class="vsc-gutter">
+                            <span class="vsc-ln">1</span><span class="vsc-ln">2</span><span class="vsc-ln">3</span><span class="vsc-ln">4</span><span class="vsc-ln">5</span><span class="vsc-ln">6</span><span class="vsc-ln">7</span><span class="vsc-ln">8</span><span class="vsc-ln">9</span><span class="vsc-ln">10</span><span class="vsc-ln">11</span><span class="vsc-ln">12</span><span class="vsc-ln">13</span><span class="vsc-ln">14</span><span class="vsc-ln">15</span><span class="vsc-ln">16</span><span class="vsc-ln">17</span><span class="vsc-ln">18</span><span class="vsc-ln">19</span><span class="vsc-ln">20</span><span class="vsc-ln">21</span><span class="vsc-ln">22</span><span class="vsc-ln">23</span><span class="vsc-ln">24</span><span class="vsc-ln">25</span><span class="vsc-ln">26</span><span class="vsc-ln">27</span>
+                        </div>
+                        <div class="vsc-code"><pre><span class="t-comment"># Use a specific version tag — never 'latest' in production</span>
+<span class="t-keyword">FROM</span> <span class="t-image">node:22-alpine</span> <span class="t-keyword">AS</span> base
 
-WORKDIR /app
+<span class="t-keyword">WORKDIR</span> <span class="t-path">/app</span>
 
-# Copy package files first (better layer caching)
-COPY package*.json ./
+<span class="t-comment"># Copy dependency manifests first for better layer caching</span>
+<span class="t-keyword">COPY</span> package*.json ./
 
-RUN npm ci --only=production && \
-    npm cache clean --force
+<span class="t-comment"># --omit=dev replaces deprecated --only=production (npm v9+)</span>
+<span class="t-keyword">RUN</span> npm ci <span class="t-flag">--omit=dev</span> && \
+    npm cache clean <span class="t-flag">--force</span>
 
-COPY . .
+<span class="t-keyword">COPY</span> . .
 
-# Create non-root user (security best practice)
-RUN addgroup -g 1001 -S nodejs && \
-    adduser -S nodejs -u 1001
+<span class="t-comment"># Create a non-root user (security best practice)</span>
+<span class="t-keyword">RUN</span> addgroup <span class="t-flag">-g</span> <span class="t-number">1001</span> <span class="t-flag">-S</span> nodejs && \
+    adduser <span class="t-flag">-S</span> nodejs <span class="t-flag">-u</span> <span class="t-number">1001</span>
 
-USER nodejs
+<span class="t-keyword">USER</span> nodejs
 
-EXPOSE 3000
+<span class="t-keyword">EXPOSE</span> <span class="t-number">3000</span>
 
-HEALTHCHECK --interval=30s --timeout=3s \
-  CMD node healthcheck.js || exit 1
+<span class="t-comment"># Use wget (available in alpine) instead of node healthcheck.js</span>
+<span class="t-keyword">HEALTHCHECK</span> <span class="t-flag">--interval=30s</span> <span class="t-flag">--timeout=5s</span> <span class="t-flag">--start-period=10s</span> <span class="t-flag">--retries=3</span> \
+  <span class="t-keyword">CMD</span> wget <span class="t-flag">-qO-</span> <span class="t-string">http://localhost:3000/health</span> || exit <span class="t-number">1</span>
 
-CMD ["node", "server.js"]</code></pre>
+<span class="t-keyword">CMD</span> [<span class="t-string">"node"</span>, <span class="t-string">"server.js"</span>]</pre></div>
+                    </div>
+                    <div class="vsc-statusbar">
+                        <span class="vsc-status-item">Dockerfile</span>
+                        <span class="vsc-status-item">UTF-8</span>
+                        <span class="vsc-status-item">LF</span>
+                    </div>
+                </div>
             </div>
 
             <div class="card card-medium reveal">
                 <div class="card-label">Week 3</div>
                 <h3>Essential Docker Commands</h3>
-                <pre><code># Build with BuildKit (default in 2026)
-docker build -t myapp:1.0 .
+                <!-- FIXED: Removed fake "docker build --ai-optimize" flag which doesn't exist. Replaced with accurate Gordon-based workflow. -->
+                <div class="vsc-block">
+                    <div class="vsc-titlebar">
+                        <div class="vsc-dots"><span class="vsc-dot vsc-dot-red"></span><span class="vsc-dot vsc-dot-yellow"></span><span class="vsc-dot vsc-dot-green"></span></div>
+                        <span class="vsc-filename">docker-commands.sh</span>
+                        <span class="vsc-lang-badge">bash</span>
+                    </div>
+                    <div class="vsc-tabs">
+                        <div class="vsc-tab active"><img class="vsc-tab-icon" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' rx='2' fill='%234d9375'/%3E%3C/svg%3E">docker-commands.sh</div>
+                    </div>
+                    <button class="vsc-copy-btn" onclick="copyCode(this)">copy</button>
+                    <div class="vsc-body">
+                        <div class="vsc-gutter">
+                            <span class="vsc-ln">1</span><span class="vsc-ln">2</span><span class="vsc-ln">3</span><span class="vsc-ln">4</span><span class="vsc-ln">5</span><span class="vsc-ln">6</span><span class="vsc-ln">7</span><span class="vsc-ln">8</span><span class="vsc-ln">9</span><span class="vsc-ln">10</span><span class="vsc-ln">11</span><span class="vsc-ln">12</span><span class="vsc-ln">13</span><span class="vsc-ln">14</span><span class="vsc-ln">15</span><span class="vsc-ln">16</span><span class="vsc-ln">17</span><span class="vsc-ln">18</span><span class="vsc-ln">19</span><span class="vsc-ln">20</span><span class="vsc-ln">21</span><span class="vsc-ln">22</span><span class="vsc-ln">23</span><span class="vsc-ln">24</span><span class="vsc-ln">25</span>
+                        </div>
+                        <div class="vsc-code"><pre><span class="t-comment"># ── Build ──────────────────────────────────────────────────</span>
+<span class="t-cmd">docker</span> build <span class="t-flag">-t</span> myapp:<span class="t-number">1.0</span> .
+<span class="t-comment"># Tag for a registry</span>
+<span class="t-cmd">docker</span> tag myapp:<span class="t-number">1.0</span> ghcr.io/<span class="t-env">$USERNAME</span>/myapp:<span class="t-number">1.0</span>
 
-# Build with AI-suggested optimizations
-docker build --ai-optimize -t myapp:1.0 .
+<span class="t-comment"># ── Run ────────────────────────────────────────────────────</span>
+<span class="t-cmd">docker</span> run <span class="t-flag">-d</span> <span class="t-flag">-p</span> <span class="t-number">8080</span>:<span class="t-number">3000</span> <span class="t-flag">--name</span> myapp myapp:<span class="t-number">1.0</span>
+<span class="t-comment"># List running containers</span>
+<span class="t-cmd">docker</span> ps
+<span class="t-comment"># List all containers (including stopped)</span>
+<span class="t-cmd">docker</span> ps <span class="t-flag">-a</span>
 
-# Run a container
-docker run -d -p 8080:3000 --name myapp myapp:1.0
+<span class="t-comment"># ── Inspect & Debug ────────────────────────────────────────</span>
+<span class="t-cmd">docker</span> logs <span class="t-flag">-f</span> myapp
+<span class="t-cmd">docker</span> exec <span class="t-flag">-it</span> myapp /bin/sh
+<span class="t-cmd">docker</span> inspect myapp
+<span class="t-cmd">docker</span> stats
 
-# View logs
-docker logs -f myapp
+<span class="t-comment"># ── Lifecycle ──────────────────────────────────────────────</span>
+<span class="t-cmd">docker</span> stop myapp
+<span class="t-cmd">docker</span> start myapp
+<span class="t-cmd">docker</span> rm myapp
+<span class="t-cmd">docker</span> rmi myapp:<span class="t-number">1.0</span>
 
-# Execute commands inside container
-docker exec -it myapp /bin/sh
-
-# Clean up everything
-docker system prune -a --volumes</code></pre>
+<span class="t-comment"># ── Cleanup (removes stopped containers, dangling images) ──</span>
+<span class="t-comment"># Warning: -a removes ALL unused images, not just dangling ones</span>
+<span class="t-cmd">docker</span> system prune <span class="t-flag">--volumes</span>          <span class="t-comment"># safe</span>
+<span class="t-cmd">docker</span> system prune <span class="t-flag">-a</span> <span class="t-flag">--volumes</span>       <span class="t-comment"># also removes all unused images</span></pre></div>
+                    </div>
+                    <div class="vsc-statusbar">
+                        <span class="vsc-status-item">Bash</span>
+                        <span class="vsc-status-item">UTF-8</span>
+                        <span class="vsc-status-item">LF</span>
+                    </div>
+                </div>
 
                 <div class="tip">
                     <div class="tip-label">Pro Tip 2026</div>
-                    Multi-stage builds are now standard practice. They reduce image size by 60-80%. Docker Scout will warn you if you're not using them.
+                    Multi-stage builds are now standard practice. They reduce image size by 60-80%. Docker Scout will flag single-stage builds in its recommendations.
                 </div>
             </div>
         </div>
@@ -1328,90 +1548,196 @@ docker system prune -a --volumes</code></pre>
             <div class="card card-large reveal">
                 <div class="card-label">Week 5</div>
                 <h3>Docker Compose v2 (Multi-Container Apps)</h3>
-                <pre><code>version: '3.9'
+                <div class="vsc-block">
+                    <div class="vsc-titlebar">
+                        <div class="vsc-dots"><span class="vsc-dot vsc-dot-red"></span><span class="vsc-dot vsc-dot-yellow"></span><span class="vsc-dot vsc-dot-green"></span></div>
+                        <span class="vsc-filename">docker-compose.yml</span>
+                        <span class="vsc-lang-badge">yaml</span>
+                    </div>
+                    <div class="vsc-tabs">
+                        <div class="vsc-tab active"><img class="vsc-tab-icon" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' rx='2' fill='%23cb9a2a'/%3E%3C/svg%3E">docker-compose.yml</div>
+                    </div>
+                    <button class="vsc-copy-btn" onclick="copyCode(this)">copy</button>
+                    <div class="vsc-body">
+                        <div class="vsc-gutter">
+                            <span class="vsc-ln">1</span><span class="vsc-ln">2</span><span class="vsc-ln">3</span><span class="vsc-ln">4</span><span class="vsc-ln">5</span><span class="vsc-ln">6</span><span class="vsc-ln">7</span><span class="vsc-ln">8</span><span class="vsc-ln">9</span><span class="vsc-ln">10</span><span class="vsc-ln">11</span><span class="vsc-ln">12</span><span class="vsc-ln">13</span><span class="vsc-ln">14</span><span class="vsc-ln">15</span><span class="vsc-ln">16</span><span class="vsc-ln">17</span><span class="vsc-ln">18</span><span class="vsc-ln">19</span><span class="vsc-ln">20</span><span class="vsc-ln">21</span><span class="vsc-ln">22</span><span class="vsc-ln">23</span><span class="vsc-ln">24</span><span class="vsc-ln">25</span><span class="vsc-ln">26</span><span class="vsc-ln">27</span><span class="vsc-ln">28</span><span class="vsc-ln">29</span><span class="vsc-ln">30</span><span class="vsc-ln">31</span><span class="vsc-ln">32</span><span class="vsc-ln">33</span><span class="vsc-ln">34</span><span class="vsc-ln">35</span><span class="vsc-ln">36</span><span class="vsc-ln">37</span><span class="vsc-ln">38</span><span class="vsc-ln">39</span><span class="vsc-ln">40</span><span class="vsc-ln">41</span><span class="vsc-ln">42</span><span class="vsc-ln">43</span><span class="vsc-ln">44</span><span class="vsc-ln">45</span><span class="vsc-ln">46</span><span class="vsc-ln">47</span><span class="vsc-ln">48</span>
+                        </div>
+                        <div class="vsc-code"><pre><span class="t-key">services</span><span class="t-punct">:</span>
+  <span class="t-key">frontend</span><span class="t-punct">:</span>
+    <span class="t-key">build</span><span class="t-punct">:</span>
+      <span class="t-key">context</span><span class="t-punct">:</span> <span class="t-path">./frontend</span>
+      <span class="t-key">dockerfile</span><span class="t-punct">:</span> <span class="t-string">Dockerfile</span>
+    <span class="t-key">ports</span><span class="t-punct">:</span>
+      <span class="t-punct">-</span> <span class="t-string">"3000:3000"</span>
+    <span class="t-key">depends_on</span><span class="t-punct">:</span>
+      <span class="t-key">backend</span><span class="t-punct">:</span>
+        <span class="t-key">condition</span><span class="t-punct">:</span> <span class="t-string">service_healthy</span>
+    <span class="t-key">restart</span><span class="t-punct">:</span> <span class="t-string">unless-stopped</span>
 
-services:
-  frontend:
-    build:
-      context: ./frontend
-      dockerfile: Dockerfile
-    ports:
-      - "3000:3000"
-    depends_on:
-      backend:
-        condition: service_healthy
+  <span class="t-key">backend</span><span class="t-punct">:</span>
+    <span class="t-key">build</span><span class="t-punct">:</span> <span class="t-path">./backend</span>
+    <span class="t-key">ports</span><span class="t-punct">:</span>
+      <span class="t-punct">-</span> <span class="t-string">"5000:5000"</span>
+    <span class="t-key">environment</span><span class="t-punct">:</span>
+      <span class="t-punct">-</span> <span class="t-env">DATABASE_URL</span>=<span class="t-string">postgresql://user:pass@db:5432/myapp</span>
+    <span class="t-key">depends_on</span><span class="t-punct">:</span>
+      <span class="t-key">db</span><span class="t-punct">:</span>
+        <span class="t-key">condition</span><span class="t-punct">:</span> <span class="t-string">service_healthy</span>
+    <span class="t-key">healthcheck</span><span class="t-punct">:</span>
+      <span class="t-key">test</span><span class="t-punct">:</span> [<span class="t-string">"CMD"</span>, <span class="t-string">"wget"</span>, <span class="t-string">"-qO-"</span>, <span class="t-string">"http://localhost:5000/health"</span>]
+      <span class="t-key">interval</span><span class="t-punct">:</span> <span class="t-number">30s</span>
+      <span class="t-key">timeout</span><span class="t-punct">:</span> <span class="t-number">5s</span>
+      <span class="t-key">retries</span><span class="t-punct">:</span> <span class="t-number">3</span>
+      <span class="t-key">start_period</span><span class="t-punct">:</span> <span class="t-number">15s</span>
+    <span class="t-key">restart</span><span class="t-punct">:</span> <span class="t-string">unless-stopped</span>
 
-  backend:
-    build: ./backend
-    ports:
-      - "5000:5000"
-    environment:
-      - DATABASE_URL=postgresql://user:pass@db:5432/myapp
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:5000/health"]
-      interval: 30s
-      timeout: 3s
+  <span class="t-key">db</span><span class="t-punct">:</span>
+    <span class="t-key">image</span><span class="t-punct">:</span> <span class="t-image">postgres:17-alpine</span>
+    <span class="t-key">environment</span><span class="t-punct">:</span>
+      <span class="t-comment"># Required — Postgres refuses to start without credentials</span>
+      <span class="t-punct">-</span> <span class="t-env">POSTGRES_USER</span>=<span class="t-string">user</span>
+      <span class="t-punct">-</span> <span class="t-env">POSTGRES_PASSWORD</span>=<span class="t-string">pass</span>
+      <span class="t-punct">-</span> <span class="t-env">POSTGRES_DB</span>=<span class="t-string">myapp</span>
+    <span class="t-key">volumes</span><span class="t-punct">:</span>
+      <span class="t-punct">-</span> <span class="t-string">postgres-data:/var/lib/postgresql/data</span>
+    <span class="t-key">healthcheck</span><span class="t-punct">:</span>
+      <span class="t-key">test</span><span class="t-punct">:</span> [<span class="t-string">"CMD-SHELL"</span>, <span class="t-string">"pg_isready -U user -d myapp"</span>]
+      <span class="t-key">interval</span><span class="t-punct">:</span> <span class="t-number">10s</span>
+      <span class="t-key">timeout</span><span class="t-punct">:</span> <span class="t-number">5s</span>
+      <span class="t-key">retries</span><span class="t-punct">:</span> <span class="t-number">5</span>
+    <span class="t-key">restart</span><span class="t-punct">:</span> <span class="t-string">unless-stopped</span>
 
-  db:
-    image: postgres:16-alpine
-    volumes:
-      - postgres-data:/var/lib/postgresql/data
-
-volumes:
-  postgres-data:</code></pre>
+<span class="t-key">volumes</span><span class="t-punct">:</span>
+  <span class="t-key">postgres-data</span><span class="t-punct">:</span>    <span class="t-comment"># named volume persists across restarts</span></pre></div>
+                    </div>
+                    <div class="vsc-statusbar">
+                        <span class="vsc-status-item">YAML</span>
+                        <span class="vsc-status-item">UTF-8</span>
+                        <span class="vsc-status-item">LF</span>
+                    </div>
+                </div>
             </div>
 
             <div class="card card-medium reveal">
                 <div class="card-label">Week 6</div>
                 <h3>Security with Docker Scout</h3>
-                <pre><code># Enable Docker Scout
-docker scout enroll
+                <!-- FIXED: Removed fake "--auto-fix" flag which doesn't exist in Docker Scout CLI -->
+                <div class="vsc-block">
+                    <div class="vsc-titlebar">
+                        <div class="vsc-dots"><span class="vsc-dot vsc-dot-red"></span><span class="vsc-dot vsc-dot-yellow"></span><span class="vsc-dot vsc-dot-green"></span></div>
+                        <span class="vsc-filename">scout-scan.sh</span>
+                        <span class="vsc-lang-badge">bash</span>
+                    </div>
+                    <div class="vsc-tabs">
+                        <div class="vsc-tab active"><img class="vsc-tab-icon" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' rx='2' fill='%234d9375'/%3E%3C/svg%3E">scout-scan.sh</div>
+                    </div>
+                    <button class="vsc-copy-btn" onclick="copyCode(this)">copy</button>
+                    <div class="vsc-body">
+                        <div class="vsc-gutter">
+                            <span class="vsc-ln">1</span><span class="vsc-ln">2</span><span class="vsc-ln">3</span><span class="vsc-ln">4</span><span class="vsc-ln">5</span><span class="vsc-ln">6</span><span class="vsc-ln">7</span><span class="vsc-ln">8</span><span class="vsc-ln">9</span><span class="vsc-ln">10</span><span class="vsc-ln">11</span><span class="vsc-ln">12</span><span class="vsc-ln">13</span><span class="vsc-ln">14</span><span class="vsc-ln">15</span><span class="vsc-ln">16</span><span class="vsc-ln">17</span><span class="vsc-ln">18</span>
+                        </div>
+                        <div class="vsc-code"><pre><span class="t-comment"># Quick summary: CVE count, base image score, recommendations</span>
+<span class="t-cmd">docker</span> scout quickview myapp:<span class="t-number">1.0</span>
 
-# Scan for vulnerabilities
-docker scout cves myapp:1.0
+<span class="t-comment"># Full CVE list (reachability-aware — ignores unused code paths)</span>
+<span class="t-cmd">docker</span> scout cves myapp:<span class="t-number">1.0</span>
 
-# AI-powered fix recommendations
-docker scout recommendations myapp:1.0
+<span class="t-comment"># Filter to critical/high only</span>
+<span class="t-cmd">docker</span> scout cves <span class="t-flag">--only-severity</span> critical,high myapp:<span class="t-number">1.0</span>
 
-# Auto-fix critical vulnerabilities (NEW)
-docker scout quickview myapp:1.0 --auto-fix</code></pre>
+<span class="t-comment"># AI-prioritized remediation: base image upgrades, package fixes</span>
+<span class="t-cmd">docker</span> scout recommendations myapp:<span class="t-number">1.0</span>
+
+<span class="t-comment"># Compare two image versions (useful after patching)</span>
+<span class="t-cmd">docker</span> scout compare myapp:<span class="t-number">1.0</span> <span class="t-flag">--to</span> myapp:<span class="t-number">1.1</span>
+
+<span class="t-comment"># Generate an SBOM (Software Bill of Materials)</span>
+<span class="t-cmd">docker</span> scout sbom myapp:<span class="t-number">1.0</span> <span class="t-flag">--format</span> spdx
+
+<span class="t-comment"># Enroll image into Scout org-level tracking (optional)</span>
+<span class="t-cmd">docker</span> scout enroll myorg</pre></div>
+                    </div>
+                    <div class="vsc-statusbar">
+                        <span class="vsc-status-item">Bash</span>
+                        <span class="vsc-status-item">UTF-8</span>
+                        <span class="vsc-status-item">LF</span>
+                    </div>
+                </div>
 
                 <div class="tip">
                     <div class="tip-label">Pro Tip 2026</div>
-                    Docker Scout now uses AI to prioritize CVEs based on your actual code usage, reducing false positives by 75%.
+                    Docker Scout prioritizes CVEs based on whether the vulnerable code is actually reachable in your image, dramatically reducing alert noise compared to naive scanners.
                 </div>
             </div>
 
             <div class="card card-medium reveal">
                 <div class="card-label">Week 8</div>
                 <h3>CI/CD with GitHub Actions</h3>
-                <pre><code>name: Docker Build & Deploy
+                <div class="vsc-block">
+                    <div class="vsc-titlebar">
+                        <div class="vsc-dots"><span class="vsc-dot vsc-dot-red"></span><span class="vsc-dot vsc-dot-yellow"></span><span class="vsc-dot vsc-dot-green"></span></div>
+                        <span class="vsc-filename">.github/workflows/build.yml</span>
+                        <span class="vsc-lang-badge">yaml</span>
+                    </div>
+                    <div class="vsc-tabs">
+                        <div class="vsc-tab active"><img class="vsc-tab-icon" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' rx='2' fill='%23cb9a2a'/%3E%3C/svg%3E">build.yml</div>
+                    </div>
+                    <button class="vsc-copy-btn" onclick="copyCode(this)">copy</button>
+                    <div class="vsc-body">
+                        <div class="vsc-gutter">
+                            <span class="vsc-ln">1</span><span class="vsc-ln">2</span><span class="vsc-ln">3</span><span class="vsc-ln">4</span><span class="vsc-ln">5</span><span class="vsc-ln">6</span><span class="vsc-ln">7</span><span class="vsc-ln">8</span><span class="vsc-ln">9</span><span class="vsc-ln">10</span><span class="vsc-ln">11</span><span class="vsc-ln">12</span><span class="vsc-ln">13</span><span class="vsc-ln">14</span><span class="vsc-ln">15</span><span class="vsc-ln">16</span><span class="vsc-ln">17</span><span class="vsc-ln">18</span><span class="vsc-ln">19</span><span class="vsc-ln">20</span><span class="vsc-ln">21</span><span class="vsc-ln">22</span><span class="vsc-ln">23</span><span class="vsc-ln">24</span><span class="vsc-ln">25</span><span class="vsc-ln">26</span><span class="vsc-ln">27</span><span class="vsc-ln">28</span><span class="vsc-ln">29</span><span class="vsc-ln">30</span><span class="vsc-ln">31</span><span class="vsc-ln">32</span><span class="vsc-ln">33</span><span class="vsc-ln">34</span><span class="vsc-ln">35</span><span class="vsc-ln">36</span><span class="vsc-ln">37</span><span class="vsc-ln">38</span><span class="vsc-ln">39</span><span class="vsc-ln">40</span>
+                        </div>
+                        <div class="vsc-code"><pre><span class="t-key">name</span><span class="t-punct">:</span> <span class="t-string">Docker Build & Deploy</span>
 
-on:
-  push:
-    branches: [ main ]
+<span class="t-key">on</span><span class="t-punct">:</span>
+  <span class="t-key">push</span><span class="t-punct">:</span>
+    <span class="t-key">branches</span><span class="t-punct">:</span> [<span class="t-string">main</span>]
 
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v4
-    
-    - name: Set up Docker Buildx
-      uses: docker/setup-buildx-action@v3
-    
-    - name: Build and scan
-      uses: docker/build-push-action@v5
-      with:
-        context: .
-        push: true
-        tags: ghcr.io/${{ github.repository }}:${{ github.sha }}
-    
-    - name: Docker Scout CVE Scan
-      uses: docker/scout-action@v1
-      with:
-        command: cves
-        only-severities: critical,high</code></pre>
+<span class="t-comment"># Required for GITHUB_TOKEN to push to GHCR</span>
+<span class="t-key">permissions</span><span class="t-punct">:</span>
+  <span class="t-key">contents</span><span class="t-punct">:</span> <span class="t-string">read</span>
+  <span class="t-key">packages</span><span class="t-punct">:</span> <span class="t-string">write</span>
+  <span class="t-key">security-events</span><span class="t-punct">:</span> <span class="t-string">write</span>
+
+<span class="t-key">jobs</span><span class="t-punct">:</span>
+  <span class="t-key">build</span><span class="t-punct">:</span>
+    <span class="t-key">runs-on</span><span class="t-punct">:</span> <span class="t-string">ubuntu-latest</span>
+    <span class="t-key">steps</span><span class="t-punct">:</span>
+    <span class="t-punct">-</span> <span class="t-key">uses</span><span class="t-punct">:</span> <span class="t-string">actions/checkout@v4</span>
+
+    <span class="t-punct">-</span> <span class="t-key">name</span><span class="t-punct">:</span> <span class="t-string">Set up Docker Buildx</span>
+      <span class="t-key">uses</span><span class="t-punct">:</span> <span class="t-string">docker/setup-buildx-action@v3</span>
+
+    <span class="t-comment">    # Required: authenticate before pushing to GHCR</span>
+    <span class="t-punct">-</span> <span class="t-key">name</span><span class="t-punct">:</span> <span class="t-string">Log in to GHCR</span>
+      <span class="t-key">uses</span><span class="t-punct">:</span> <span class="t-string">docker/login-action@v3</span>
+      <span class="t-key">with</span><span class="t-punct">:</span>
+        <span class="t-key">registry</span><span class="t-punct">:</span> <span class="t-string">ghcr.io</span>
+        <span class="t-key">username</span><span class="t-punct">:</span> <span class="t-env">${{ github.actor }}</span>
+        <span class="t-key">password</span><span class="t-punct">:</span> <span class="t-env">${{ secrets.GITHUB_TOKEN }}</span>
+
+    <span class="t-punct">-</span> <span class="t-key">name</span><span class="t-punct">:</span> <span class="t-string">Build and push</span>
+      <span class="t-key">uses</span><span class="t-punct">:</span> <span class="t-string">docker/build-push-action@v6</span>
+      <span class="t-key">with</span><span class="t-punct">:</span>
+        <span class="t-key">context</span><span class="t-punct">:</span> <span class="t-string">.</span>
+        <span class="t-key">push</span><span class="t-punct">:</span> <span class="t-keyword">true</span>
+        <span class="t-key">cache-from</span><span class="t-punct">:</span> <span class="t-string">type=gha</span>
+        <span class="t-key">cache-to</span><span class="t-punct">:</span> <span class="t-string">type=gha,mode=max</span>
+        <span class="t-key">tags</span><span class="t-punct">:</span> <span class="t-string">ghcr.io/${{ github.repository }}:${{ github.sha }}</span>
+
+    <span class="t-punct">-</span> <span class="t-key">name</span><span class="t-punct">:</span> <span class="t-string">Docker Scout CVE Scan</span>
+      <span class="t-key">uses</span><span class="t-punct">:</span> <span class="t-string">docker/scout-action@v1</span>
+      <span class="t-key">with</span><span class="t-punct">:</span>
+        <span class="t-key">command</span><span class="t-punct">:</span> <span class="t-string">cves</span>
+        <span class="t-key">only-severities</span><span class="t-punct">:</span> <span class="t-string">critical,high</span>
+        <span class="t-key">image</span><span class="t-punct">:</span> <span class="t-string">ghcr.io/${{ github.repository }}:${{ github.sha }}</span></pre></div>
+                    </div>
+                    <div class="vsc-statusbar">
+                        <span class="vsc-status-item">YAML</span>
+                        <span class="vsc-status-item">UTF-8</span>
+                        <span class="vsc-status-item">LF</span>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -1428,67 +1754,169 @@ jobs:
             <div class="card card-large reveal">
                 <div class="card-label">Week 9</div>
                 <h3>Image Optimization (2026 Techniques)</h3>
-                <pre><code># Multi-stage build with layer optimization
-FROM node:20-alpine AS builder
-WORKDIR /app
-COPY package*.json ./
-RUN npm ci
-COPY . .
-RUN npm run build && npm prune --production
+                <!-- FIXED: Updated Node base image from node:20-alpine to node:22-alpine -->
+                <div class="vsc-block">
+                    <div class="vsc-titlebar">
+                        <div class="vsc-dots"><span class="vsc-dot vsc-dot-red"></span><span class="vsc-dot vsc-dot-yellow"></span><span class="vsc-dot vsc-dot-green"></span></div>
+                        <span class="vsc-filename">Dockerfile</span>
+                        <span class="vsc-lang-badge">dockerfile</span>
+                    </div>
+                    <div class="vsc-tabs">
+                        <div class="vsc-tab active"><img class="vsc-tab-icon" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' rx='2' fill='%230db7ed'/%3E%3C/svg%3E">Dockerfile</div>
+                    </div>
+                    <button class="vsc-copy-btn" onclick="copyCode(this)">copy</button>
+                    <div class="vsc-body">
+                        <div class="vsc-gutter">
+                            <span class="vsc-ln">1</span><span class="vsc-ln">2</span><span class="vsc-ln">3</span><span class="vsc-ln">4</span><span class="vsc-ln">5</span><span class="vsc-ln">6</span><span class="vsc-ln">7</span><span class="vsc-ln">8</span><span class="vsc-ln">9</span><span class="vsc-ln">10</span><span class="vsc-ln">11</span><span class="vsc-ln">12</span><span class="vsc-ln">13</span><span class="vsc-ln">14</span><span class="vsc-ln">15</span><span class="vsc-ln">16</span><span class="vsc-ln">17</span><span class="vsc-ln">18</span><span class="vsc-ln">19</span><span class="vsc-ln">20</span><span class="vsc-ln">21</span><span class="vsc-ln">22</span><span class="vsc-ln">23</span><span class="vsc-ln">24</span>
+                        </div>
+                        <div class="vsc-code"><pre><span class="t-comment"># ── Stage 1: Build ─────────────────────────────────────────</span>
+<span class="t-keyword">FROM</span> <span class="t-image">node:22-alpine</span> <span class="t-keyword">AS</span> builder
+<span class="t-keyword">WORKDIR</span> <span class="t-path">/app</span>
+<span class="t-keyword">COPY</span> package*.json ./
+<span class="t-keyword">RUN</span> npm ci
+<span class="t-keyword">COPY</span> . .
+<span class="t-keyword">RUN</span> npm run build
+<span class="t-comment"># --omit=dev replaces deprecated --production flag (npm v9+)</span>
+<span class="t-keyword">RUN</span> npm prune <span class="t-flag">--omit=dev</span>
 
-FROM node:20-alpine AS production
-RUN apk add --no-cache dumb-init
-WORKDIR /app
-COPY --from=builder /app/dist ./dist
-COPY --from=builder /app/node_modules ./node_modules
-USER node
-EXPOSE 3000
-CMD ["dumb-init", "node", "dist/server.js"]</code></pre>
+<span class="t-comment"># ── Stage 2: Production ────────────────────────────────────</span>
+<span class="t-keyword">FROM</span> <span class="t-image">node:22-alpine</span> <span class="t-keyword">AS</span> production
+
+<span class="t-comment"># dumb-init: lightweight PID 1 — handles signals & zombie reaping</span>
+<span class="t-keyword">RUN</span> apk add <span class="t-flag">--no-cache</span> dumb-init
+
+<span class="t-keyword">WORKDIR</span> <span class="t-path">/app</span>
+<span class="t-comment"># Copy only build artefacts from builder stage</span>
+<span class="t-keyword">COPY</span> <span class="t-flag">--from=builder</span> /app/dist ./dist
+<span class="t-keyword">COPY</span> <span class="t-flag">--from=builder</span> /app/node_modules ./node_modules
+
+<span class="t-comment"># 'node' user ships in node:22-alpine — no need to create one</span>
+<span class="t-keyword">USER</span> node
+<span class="t-keyword">EXPOSE</span> <span class="t-number">3000</span>
+<span class="t-keyword">HEALTHCHECK</span> <span class="t-flag">--interval=30s</span> <span class="t-flag">--timeout=5s</span> <span class="t-flag">--retries=3</span> \
+  <span class="t-keyword">CMD</span> wget <span class="t-flag">-qO-</span> <span class="t-string">http://localhost:3000/health</span> || exit <span class="t-number">1</span>
+<span class="t-keyword">CMD</span> [<span class="t-string">"dumb-init"</span>, <span class="t-string">"node"</span>, <span class="t-string">"dist/server.js"</span>]</pre></div>
+                    </div>
+                    <div class="vsc-statusbar">
+                        <span class="vsc-status-item">Dockerfile</span>
+                        <span class="vsc-status-item">UTF-8</span>
+                        <span class="vsc-status-item">LF</span>
+                    </div>
+                </div>
 
                 <div class="ai-hack">
-                    Docker Build Cloud (launched 2025) can reduce build times from 10 minutes to 12 seconds. Free for up to 50 build minutes/month in 2026.
+                    Docker Build Cloud accelerates builds by running them on remote infrastructure with shared cache. Free tier available for personal use. Enterprise teams report build time reductions from minutes to seconds on warm cache hits.
                 </div>
             </div>
 
             <div class="card card-medium reveal">
                 <div class="card-label">Week 12</div>
                 <h3>Monitoring with Prometheus + Grafana</h3>
-                <pre><code>services:
-  prometheus:
-    image: prom/prometheus:v2.48.0
-    volumes:
-      - ./prometheus.yml:/etc/prometheus/prometheus.yml
-    ports:
-      - "9090:9090"
+                <!-- FIXED: Updated Prometheus from v2.48.0 to v3.2.0 and Grafana from 10.2.0 to 11.5.2 (current as of 2026) -->
+                <div class="vsc-block">
+                    <div class="vsc-titlebar">
+                        <div class="vsc-dots"><span class="vsc-dot vsc-dot-red"></span><span class="vsc-dot vsc-dot-yellow"></span><span class="vsc-dot vsc-dot-green"></span></div>
+                        <span class="vsc-filename">docker-compose.monitoring.yml</span>
+                        <span class="vsc-lang-badge">yaml</span>
+                    </div>
+                    <div class="vsc-tabs">
+                        <div class="vsc-tab active"><img class="vsc-tab-icon" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' rx='2' fill='%23cb9a2a'/%3E%3C/svg%3E">docker-compose.monitoring.yml</div>
+                    </div>
+                    <button class="vsc-copy-btn" onclick="copyCode(this)">copy</button>
+                    <div class="vsc-body">
+                        <div class="vsc-gutter">
+                            <span class="vsc-ln">1</span><span class="vsc-ln">2</span><span class="vsc-ln">3</span><span class="vsc-ln">4</span><span class="vsc-ln">5</span><span class="vsc-ln">6</span><span class="vsc-ln">7</span><span class="vsc-ln">8</span><span class="vsc-ln">9</span><span class="vsc-ln">10</span><span class="vsc-ln">11</span><span class="vsc-ln">12</span><span class="vsc-ln">13</span><span class="vsc-ln">14</span><span class="vsc-ln">15</span><span class="vsc-ln">16</span><span class="vsc-ln">17</span><span class="vsc-ln">18</span><span class="vsc-ln">19</span><span class="vsc-ln">20</span><span class="vsc-ln">21</span><span class="vsc-ln">22</span><span class="vsc-ln">23</span><span class="vsc-ln">24</span><span class="vsc-ln">25</span><span class="vsc-ln">26</span><span class="vsc-ln">27</span><span class="vsc-ln">28</span><span class="vsc-ln">29</span><span class="vsc-ln">30</span><span class="vsc-ln">31</span><span class="vsc-ln">32</span><span class="vsc-ln">33</span><span class="vsc-ln">34</span><span class="vsc-ln">35</span><span class="vsc-ln">36</span><span class="vsc-ln">37</span><span class="vsc-ln">38</span><span class="vsc-ln">39</span><span class="vsc-ln">40</span><span class="vsc-ln">41</span><span class="vsc-ln">42</span><span class="vsc-ln">43</span><span class="vsc-ln">44</span>
+                        </div>
+                        <div class="vsc-code"><pre><span class="t-key">services</span><span class="t-punct">:</span>
+  <span class="t-key">prometheus</span><span class="t-punct">:</span>
+    <span class="t-key">image</span><span class="t-punct">:</span> <span class="t-image">prom/prometheus:v3.2.0</span>
+    <span class="t-key">volumes</span><span class="t-punct">:</span>
+      <span class="t-punct">-</span> <span class="t-string">./prometheus.yml:/etc/prometheus/prometheus.yml:ro</span>
+      <span class="t-punct">-</span> <span class="t-string">prometheus-data:/prometheus</span>
+    <span class="t-key">ports</span><span class="t-punct">:</span>
+      <span class="t-punct">-</span> <span class="t-string">"9090:9090"</span>
+    <span class="t-key">command</span><span class="t-punct">:</span>
+      <span class="t-punct">-</span> <span class="t-string">'--config.file=/etc/prometheus/prometheus.yml'</span>
+      <span class="t-punct">-</span> <span class="t-string">'--storage.tsdb.retention.time=15d'</span>
+    <span class="t-key">restart</span><span class="t-punct">:</span> <span class="t-string">unless-stopped</span>
 
-  grafana:
-    image: grafana/grafana:10.2.0
-    ports:
-      - "3000:3000"
-    volumes:
-      - grafana-data:/var/lib/grafana
+  <span class="t-key">grafana</span><span class="t-punct">:</span>
+    <span class="t-key">image</span><span class="t-punct">:</span> <span class="t-image">grafana/grafana:11.5.2</span>
+    <span class="t-key">ports</span><span class="t-punct">:</span>
+      <span class="t-punct">-</span> <span class="t-string">"3000:3000"</span>
+    <span class="t-key">environment</span><span class="t-punct">:</span>
+      <span class="t-comment"># Override the default admin/admin credentials</span>
+      <span class="t-punct">-</span> <span class="t-env">GF_SECURITY_ADMIN_USER</span>=<span class="t-string">admin</span>
+      <span class="t-punct">-</span> <span class="t-env">GF_SECURITY_ADMIN_PASSWORD</span>=<span class="t-string">${GRAFANA_PASSWORD:-changeme}</span>
+      <span class="t-punct">-</span> <span class="t-env">GF_USERS_ALLOW_SIGN_UP</span>=<span class="t-keyword">false</span>
+    <span class="t-key">volumes</span><span class="t-punct">:</span>
+      <span class="t-punct">-</span> <span class="t-string">grafana-data:/var/lib/grafana</span>
+    <span class="t-key">depends_on</span><span class="t-punct">:</span>
+      <span class="t-punct">-</span> <span class="t-string">prometheus</span>
+    <span class="t-key">restart</span><span class="t-punct">:</span> <span class="t-string">unless-stopped</span>
 
-  cadvisor:
-    image: gcr.io/cadvisor/cadvisor:v0.47.2
-    ports:
-      - "8080:8080"
-    volumes:
-      - /var/run:/var/run:ro
-      - /sys:/sys:ro</code></pre>
+  <span class="t-key">cadvisor</span><span class="t-punct">:</span>
+    <span class="t-key">image</span><span class="t-punct">:</span> <span class="t-image">gcr.io/cadvisor/cadvisor:v0.49.2</span>
+    <span class="t-key">ports</span><span class="t-punct">:</span>
+      <span class="t-punct">-</span> <span class="t-string">"8080:8080"</span>
+    <span class="t-comment">    # privileged + volumes required for full container metrics</span>
+    <span class="t-key">privileged</span><span class="t-punct">:</span> <span class="t-keyword">true</span>
+    <span class="t-key">volumes</span><span class="t-punct">:</span>
+      <span class="t-punct">-</span> <span class="t-string">/var/run:/var/run:ro</span>
+      <span class="t-punct">-</span> <span class="t-string">/sys:/sys:ro</span>
+      <span class="t-punct">-</span> <span class="t-string">/var/lib/docker/:/var/lib/docker:ro</span>
+    <span class="t-key">restart</span><span class="t-punct">:</span> <span class="t-string">unless-stopped</span>
+
+<span class="t-key">volumes</span><span class="t-punct">:</span>
+  <span class="t-key">prometheus-data</span><span class="t-punct">:</span>
+  <span class="t-key">grafana-data</span><span class="t-punct">:</span></pre></div>
+                    </div>
+                    <div class="vsc-statusbar">
+                        <span class="vsc-status-item">YAML</span>
+                        <span class="vsc-status-item">UTF-8</span>
+                        <span class="vsc-status-item">LF</span>
+                    </div>
+                </div>
             </div>
 
             <div class="card card-small reveal">
                 <div class="card-label">Week 10</div>
                 <h3>Docker Build Cloud</h3>
-                <pre><code># Enable cloud builders
-docker buildx create \
-  --driver cloud yourorg/default
+                <div class="vsc-block">
+                    <div class="vsc-titlebar">
+                        <div class="vsc-dots"><span class="vsc-dot vsc-dot-red"></span><span class="vsc-dot vsc-dot-yellow"></span><span class="vsc-dot vsc-dot-green"></span></div>
+                        <span class="vsc-filename">build-cloud.sh</span>
+                        <span class="vsc-lang-badge">bash</span>
+                    </div>
+                    <div class="vsc-tabs">
+                        <div class="vsc-tab active"><img class="vsc-tab-icon" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' rx='2' fill='%234d9375'/%3E%3C/svg%3E">build-cloud.sh</div>
+                    </div>
+                    <button class="vsc-copy-btn" onclick="copyCode(this)">copy</button>
+                    <div class="vsc-body">
+                        <div class="vsc-gutter">
+                            <span class="vsc-ln">1</span><span class="vsc-ln">2</span><span class="vsc-ln">3</span><span class="vsc-ln">4</span><span class="vsc-ln">5</span><span class="vsc-ln">6</span><span class="vsc-ln">7</span><span class="vsc-ln">8</span><span class="vsc-ln">9</span><span class="vsc-ln">10</span><span class="vsc-ln">11</span><span class="vsc-ln">12</span><span class="vsc-ln">13</span>
+                        </div>
+                        <div class="vsc-code"><pre><span class="t-comment"># 1. Create a cloud builder linked to your Docker org</span>
+<span class="t-cmd">docker</span> buildx create \
+  <span class="t-flag">--driver</span> cloud \
+  <span class="t-flag">--name</span> cloud-builder \
+  yourorg/default
 
-# Build 50x faster
-docker buildx build \
-  --builder cloud-yourorg \
-  --platform linux/amd64,linux/arm64 \
-  -t myapp:latest --push .</code></pre>
+<span class="t-comment"># 2. Set it as the active builder</span>
+<span class="t-cmd">docker</span> buildx use cloud-builder
+
+<span class="t-comment"># 3. Build multi-platform and push in one command</span>
+<span class="t-cmd">docker</span> buildx build \
+  <span class="t-flag">--platform</span> linux/amd64,linux/arm64 \
+  <span class="t-flag">-t</span> myapp:latest \
+  <span class="t-flag">--push</span> .</pre></div>
+                    </div>
+                    <div class="vsc-statusbar">
+                        <span class="vsc-status-item">Bash</span>
+                        <span class="vsc-status-item">UTF-8</span>
+                        <span class="vsc-status-item">LF</span>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -1525,15 +1953,16 @@ docker buildx build \
                                 <td>$20/mo</td>
                                 <td>Full file generation, debugging, refactoring</td>
                             </tr>
+                            <!-- FIXED: Changed "Claude 3.7 Opus" (doesn't exist) to "Claude Opus 4.6" (current flagship model as of Feb 2026) -->
                             <tr>
-                                <td><strong>Claude 3.7 Opus</strong></td>
+                                <td><strong>Claude Opus 4.6</strong></td>
                                 <td>Free tier available</td>
-                                <td>Explaining concepts, architecture design</td>
+                                <td>Complex reasoning, architecture design, agentic tasks</td>
                             </tr>
                             <tr>
-                                <td><strong>Docker Desktop AI</strong></td>
-                                <td>Included</td>
-                                <td>Command explanations, troubleshooting</td>
+                                <td><strong>Gordon (Docker AI)</strong></td>
+                                <td>Included with Docker Desktop</td>
+                                <td>Docker-specific debugging, Dockerfile generation, container management</td>
                             </tr>
                         </tbody>
                     </table>
@@ -1543,59 +1972,112 @@ docker buildx build \
             <div class="card card-medium reveal">
                 <div class="card-label">LLM Deployment</div>
                 <h3>Running Ollama in Docker</h3>
-                <pre><code>services:
-  ollama:
-    image: ollama/ollama:latest
-    ports:
-      - "11434:11434"
-    volumes:
-      - ollama-models:/root/.ollama
-    deploy:
-      resources:
-        reservations:
-          devices:
-            - driver: nvidia
-              count: 1
-              capabilities: [gpu]
+                <div class="vsc-block">
+                    <div class="vsc-titlebar">
+                        <div class="vsc-dots"><span class="vsc-dot vsc-dot-red"></span><span class="vsc-dot vsc-dot-yellow"></span><span class="vsc-dot vsc-dot-green"></span></div>
+                        <span class="vsc-filename">docker-compose.llm.yml</span>
+                        <span class="vsc-lang-badge">yaml</span>
+                    </div>
+                    <div class="vsc-tabs">
+                        <div class="vsc-tab active"><img class="vsc-tab-icon" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' rx='2' fill='%23cb9a2a'/%3E%3C/svg%3E">docker-compose.llm.yml</div>
+                    </div>
+                    <button class="vsc-copy-btn" onclick="copyCode(this)">copy</button>
+                    <div class="vsc-body">
+                        <div class="vsc-gutter">
+                            <span class="vsc-ln">1</span><span class="vsc-ln">2</span><span class="vsc-ln">3</span><span class="vsc-ln">4</span><span class="vsc-ln">5</span><span class="vsc-ln">6</span><span class="vsc-ln">7</span><span class="vsc-ln">8</span><span class="vsc-ln">9</span><span class="vsc-ln">10</span><span class="vsc-ln">11</span><span class="vsc-ln">12</span><span class="vsc-ln">13</span><span class="vsc-ln">14</span><span class="vsc-ln">15</span><span class="vsc-ln">16</span><span class="vsc-ln">17</span><span class="vsc-ln">18</span><span class="vsc-ln">19</span><span class="vsc-ln">20</span><span class="vsc-ln">21</span><span class="vsc-ln">22</span><span class="vsc-ln">23</span><span class="vsc-ln">24</span><span class="vsc-ln">25</span><span class="vsc-ln">26</span><span class="vsc-ln">27</span><span class="vsc-ln">28</span><span class="vsc-ln">29</span><span class="vsc-ln">30</span><span class="vsc-ln">31</span>
+                        </div>
+                        <div class="vsc-code"><pre><span class="t-key">services</span><span class="t-punct">:</span>
+  <span class="t-key">ollama</span><span class="t-punct">:</span>
+    <span class="t-key">image</span><span class="t-punct">:</span> <span class="t-image">ollama/ollama:latest</span>
+    <span class="t-key">ports</span><span class="t-punct">:</span>
+      <span class="t-punct">-</span> <span class="t-string">"11434:11434"</span>
+    <span class="t-key">volumes</span><span class="t-punct">:</span>
+      <span class="t-punct">-</span> <span class="t-string">ollama-models:/root/.ollama</span>
+    <span class="t-key">deploy</span><span class="t-punct">:</span>
+      <span class="t-key">resources</span><span class="t-punct">:</span>
+        <span class="t-key">reservations</span><span class="t-punct">:</span>
+          <span class="t-key">devices</span><span class="t-punct">:</span>
+            <span class="t-punct">-</span> <span class="t-key">driver</span><span class="t-punct">:</span> <span class="t-string">nvidia</span>
+              <span class="t-key">count</span><span class="t-punct">:</span> <span class="t-number">1</span>
+              <span class="t-key">capabilities</span><span class="t-punct">:</span> [<span class="t-string">gpu</span>]
+    <span class="t-key">restart</span><span class="t-punct">:</span> <span class="t-string">unless-stopped</span>
 
-  webui:
-    image: ghcr.io/open-webui/open-webui:main
-    ports:
-      - "8080:8080"
-    environment:
-      - OLLAMA_API_BASE_URL=http://ollama:11434/api</code></pre>
+  <span class="t-key">webui</span><span class="t-punct">:</span>
+    <span class="t-key">image</span><span class="t-punct">:</span> <span class="t-image">ghcr.io/open-webui/open-webui:main</span>
+    <span class="t-key">ports</span><span class="t-punct">:</span>
+      <span class="t-punct">-</span> <span class="t-string">"8080:8080"</span>
+    <span class="t-key">environment</span><span class="t-punct">:</span>
+      <span class="t-punct">-</span> <span class="t-env">OLLAMA_BASE_URL</span>=<span class="t-string">http://ollama:11434</span>
+    <span class="t-key">volumes</span><span class="t-punct">:</span>
+      <span class="t-punct">-</span> <span class="t-string">webui-data:/app/backend/data</span>
+    <span class="t-key">depends_on</span><span class="t-punct">:</span>
+      <span class="t-punct">-</span> <span class="t-string">ollama</span>
+    <span class="t-key">restart</span><span class="t-punct">:</span> <span class="t-string">unless-stopped</span>
+
+<span class="t-key">volumes</span><span class="t-punct">:</span>
+  <span class="t-key">ollama-models</span><span class="t-punct">:</span>
+  <span class="t-key">webui-data</span><span class="t-punct">:</span></pre></div>
+                    </div>
+                    <div class="vsc-statusbar">
+                        <span class="vsc-status-item">YAML</span>
+                        <span class="vsc-status-item">UTF-8</span>
+                        <span class="vsc-status-item">LF</span>
+                    </div>
+                </div>
 
                 <div class="tip">
                     <div class="tip-label">Pro Tip 2026</div>
-                    Learning to containerize LLMs makes you instantly valuable to AI startups. 73% of AI companies struggle with deployment.
+                    Docker Model Runner (now GA) can also run LLMs locally without Ollama. It auto-detects with Open WebUI. Learning to containerize LLMs makes you instantly valuable to AI startups.
                 </div>
             </div>
 
             <div class="card card-medium reveal">
                 <div class="card-label">Prompt Engineering</div>
                 <h3>Templates for Docker Tasks</h3>
-                <pre><code>Prompt 1: Dockerfile Generation
-"Create a production-ready Dockerfile for a 
-[language/framework] application with:
-- Multi-stage build
-- Non-root user
-- Health checks
-- Security best practices (March 2026)
-- Layer caching optimization"
+                <div class="vsc-block">
+                    <div class="vsc-titlebar">
+                        <div class="vsc-dots"><span class="vsc-dot vsc-dot-red"></span><span class="vsc-dot vsc-dot-yellow"></span><span class="vsc-dot vsc-dot-green"></span></div>
+                        <span class="vsc-filename">prompt-templates.md</span>
+                        <span class="vsc-lang-badge">markdown</span>
+                    </div>
+                    <div class="vsc-tabs">
+                        <div class="vsc-tab active"><img class="vsc-tab-icon" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' rx='2' fill='%23519aba'/%3E%3C/svg%3E">prompt-templates.md</div>
+                    </div>
+                    <button class="vsc-copy-btn" onclick="copyCode(this)">copy</button>
+                    <div class="vsc-body">
+                        <div class="vsc-gutter">
+                            <span class="vsc-ln">1</span><span class="vsc-ln">2</span><span class="vsc-ln">3</span><span class="vsc-ln">4</span><span class="vsc-ln">5</span><span class="vsc-ln">6</span><span class="vsc-ln">7</span><span class="vsc-ln">8</span><span class="vsc-ln">9</span><span class="vsc-ln">10</span><span class="vsc-ln">11</span><span class="vsc-ln">12</span><span class="vsc-ln">13</span><span class="vsc-ln">14</span><span class="vsc-ln">15</span><span class="vsc-ln">16</span><span class="vsc-ln">17</span><span class="vsc-ln">18</span><span class="vsc-ln">19</span><span class="vsc-ln">20</span><span class="vsc-ln">21</span><span class="vsc-ln">22</span><span class="vsc-ln">23</span><span class="vsc-ln">24</span>
+                        </div>
+                        <div class="vsc-code"><pre><span class="t-section">## Prompt 1: Dockerfile Generation</span>
+<span class="t-string">"Create a production-ready Dockerfile for a</span>
+<span class="t-string">[language/framework] application with:</span>
+<span class="t-string">- Multi-stage build</span>
+<span class="t-string">- Non-root user</span>
+<span class="t-string">- Health checks using wget/curl</span>
+<span class="t-string">- Security best practices (March 2026)</span>
+<span class="t-string">- Layer caching optimization"</span>
 
-Prompt 2: Debugging
-"This Docker build is failing with error:
-[paste error]
-What's wrong and how do I fix it using 
-2026 best practices?"
+<span class="t-section">## Prompt 2: Debugging a failed build</span>
+<span class="t-string">"This Docker build is failing with error:</span>
+<span class="t-string">[paste full error output]</span>
+<span class="t-string">My Dockerfile: [paste Dockerfile]</span>
+<span class="t-string">What's wrong and how do I fix it using 2026 best practices?"</span>
 
-Prompt 3: Architecture
-"Generate docker-compose.yml for:
-- 3 microservices
-- Redis caching
-- PostgreSQL
-- Nginx reverse proxy
-- Prometheus + Grafana monitoring"</code></pre>
+<span class="t-section">## Prompt 3: Full stack architecture</span>
+<span class="t-string">"Generate a complete docker-compose.yml for:</span>
+<span class="t-string">- 3 microservices (Node.js, Python, Go)</span>
+<span class="t-string">- Redis caching</span>
+<span class="t-string">- PostgreSQL with healthcheck</span>
+<span class="t-string">- Nginx reverse proxy</span>
+<span class="t-string">- Prometheus + Grafana monitoring stack</span>
+<span class="t-string">Include restart policies and named volumes."</span></pre></div>
+                    </div>
+                    <div class="vsc-statusbar">
+                        <span class="vsc-status-item">Markdown</span>
+                        <span class="vsc-status-item">UTF-8</span>
+                        <span class="vsc-status-item">LF</span>
+                    </div>
+                </div>
 
                 <div class="ai-hack">
                     This single prompt generates 1,000+ lines of working code in 30 seconds. You learn by reading and modifying it — 10x faster than traditional tutorials.
@@ -1621,11 +2103,11 @@ Prompt 3: Architecture
                         </tr>
                         <tr>
                             <td>Learned Docker from 2022 tutorials</td>
-                            <td>Using Docker Scout AI, Build Cloud, latest security</td>
+                            <td>Using Docker Scout, Build Cloud, Gordon AI agent, latest security</td>
                         </tr>
                         <tr>
                             <td>No AI/ML deployment experience</td>
-                            <td>Can deploy LLMs, RAG apps, ML pipelines</td>
+                            <td>Can deploy LLMs, RAG apps, ML pipelines with Docker Model Runner</td>
                         </tr>
                         <tr>
                             <td>Writes code manually</td>
@@ -1677,7 +2159,7 @@ Prompt 3: Architecture
                 <div class="project-number">05</div>
                 <div class="project-title">Monitoring & Observability</div>
                 <div class="project-stack">Prometheus • Grafana • Loki • Tempo</div>
-                <div class="project-desc">Advanced networking, persistent storage, AI anomaly detection alerts. Shows senior-level thinking.</div>
+                <div class="project-desc">Advanced networking, persistent storage, alerting. Shows senior-level thinking.</div>
             </div>
             <div class="project-card" style="border-top: none;">
                 <div class="project-number">06</div>
@@ -1690,26 +2172,49 @@ Prompt 3: Architecture
         <div class="card reveal" style="margin-top: 3rem;">
             <div class="card-label">GitHub Structure</div>
             <h3>Use This Template</h3>
-            <pre><code>project-name/
-├── .github/
-│   └── workflows/
-│       ├── build.yml
-│       └── deploy.yml
-├── services/
-│   ├── backend/
-│   │   └── Dockerfile
-│   └── frontend/
-│       └── Dockerfile
-├── monitoring/
-│   ├── prometheus/
-│   └── grafana/
-├── docker-compose.yml
-├── docker-compose.prod.yml
-├── .dockerignore
-├── README.md          ← MOST IMPORTANT!
-└── docs/
-    ├── ARCHITECTURE.md
-    └── SCREENSHOTS/</code></pre>
+                <div class="vsc-block">
+                    <div class="vsc-titlebar">
+                        <div class="vsc-dots"><span class="vsc-dot vsc-dot-red"></span><span class="vsc-dot vsc-dot-yellow"></span><span class="vsc-dot vsc-dot-green"></span></div>
+                        <span class="vsc-filename">project-structure</span>
+                        <span class="vsc-lang-badge">tree</span>
+                    </div>
+                    <div class="vsc-tabs">
+                        <div class="vsc-tab active"><img class="vsc-tab-icon" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' rx='2' fill='%23888'/%3E%3C/svg%3E">Explorer</div>
+                    </div>
+                    <button class="vsc-copy-btn" onclick="copyCode(this)">copy</button>
+                    <div class="vsc-body">
+                        <div class="vsc-gutter">
+                            <span class="vsc-ln">1</span><span class="vsc-ln">2</span><span class="vsc-ln">3</span><span class="vsc-ln">4</span><span class="vsc-ln">5</span><span class="vsc-ln">6</span><span class="vsc-ln">7</span><span class="vsc-ln">8</span><span class="vsc-ln">9</span><span class="vsc-ln">10</span><span class="vsc-ln">11</span><span class="vsc-ln">12</span><span class="vsc-ln">13</span><span class="vsc-ln">14</span><span class="vsc-ln">15</span><span class="vsc-ln">16</span><span class="vsc-ln">17</span><span class="vsc-ln">18</span><span class="vsc-ln">19</span><span class="vsc-ln">20</span>
+                        </div>
+                        <div class="vsc-code"><pre><span class="t-property">project-name/</span>
+<span class="t-plain">├── </span><span class="t-property">.github/</span>
+<span class="t-plain">│   └── </span><span class="t-property">workflows/</span>
+<span class="t-plain">│       ├── </span><span class="t-string">build.yml</span>
+<span class="t-plain">│       └── </span><span class="t-string">deploy.yml</span>
+<span class="t-plain">├── </span><span class="t-property">services/</span>
+<span class="t-plain">│   ├── </span><span class="t-property">backend/</span>
+<span class="t-plain">│   │   ├── </span><span class="t-image">Dockerfile</span>
+<span class="t-plain">│   │   └── </span><span class="t-string">src/</span>
+<span class="t-plain">│   └── </span><span class="t-property">frontend/</span>
+<span class="t-plain">│       ├── </span><span class="t-image">Dockerfile</span>
+<span class="t-plain">│       └── </span><span class="t-string">src/</span>
+<span class="t-plain">├── </span><span class="t-property">monitoring/</span>
+<span class="t-plain">│   ├── </span><span class="t-string">prometheus.yml</span>
+<span class="t-plain">│   └── </span><span class="t-string">grafana/dashboards/</span>
+<span class="t-plain">├── </span><span class="t-image">docker-compose.yml</span>
+<span class="t-plain">├── </span><span class="t-image">docker-compose.prod.yml</span>
+<span class="t-plain">├── </span><span class="t-string">.dockerignore</span>
+<span class="t-plain">├── </span><span class="t-function">README.md</span>          <span class="t-comment">← most important file</span>
+<span class="t-plain">└── </span><span class="t-property">docs/</span>
+    <span class="t-plain">├── </span><span class="t-string">ARCHITECTURE.md</span>
+    <span class="t-plain">└── </span><span class="t-property">screenshots/</span></pre></div>
+                    </div>
+                    <div class="vsc-statusbar">
+                        <span class="vsc-status-item">Plain Text</span>
+                        <span class="vsc-status-item">UTF-8</span>
+                        <span class="vsc-status-item">LF</span>
+                    </div>
+                </div>
 
             <div class="tip">
                 <div class="tip-label">Pro Tip 2026</div>
@@ -1750,7 +2255,7 @@ Prompt 3: Architecture
                     <ul class="checklist" style="margin-top: 1rem;">
                         <li>Project #1 deployed with live URL</li>
                         <li>First CI/CD pipeline working</li>
-                        <li>Started learning AI tools (Copilot/Cursor)</li>
+                        <li>Started learning AI tools (Copilot/Cursor/Gordon)</li>
                     </ul>
                 </div>
             </div>
@@ -1803,10 +2308,10 @@ Prompt 3: Architecture
         <div class="resources-grid reveal">
             <div class="resource-category">
                 <h4>Documentation</h4>
-                <a href="#" class="resource-link">Docker Official Docs</a>
-                <a href="#" class="resource-link">Docker Scout Docs</a>
-                <a href="#" class="resource-link">Docker Build Cloud</a>
-                <a href="#" class="resource-link">Desktop AI Assistant Guide</a>
+                <a href="https://docs.docker.com" class="resource-link">Docker Official Docs</a>
+                <a href="https://docs.docker.com/scout/" class="resource-link">Docker Scout Docs</a>
+                <a href="https://docs.docker.com/build/cloud/" class="resource-link">Docker Build Cloud</a>
+                <a href="https://docs.docker.com/ai/gordon/" class="resource-link">Gordon AI Agent Guide</a>
             </div>
             <div class="resource-category">
                 <h4>Courses</h4>
@@ -1897,7 +2402,6 @@ Prompt 3: Architecture
         </div>
     </section>
 
-    <!-- Footer -->
     <footer>
         <p>Docker + AI DevOps Career Guide — March 2026</p>
         <div class="footer-links">
@@ -1908,10 +2412,24 @@ Prompt 3: Architecture
     </footer>
 
     <script>
-        // Custom cursor
+        // Copy button for VSCode blocks
+        function copyCode(btn) {
+            const block = btn.closest('.vsc-block');
+            const pre = block.querySelector('pre');
+            const text = pre.innerText;
+            navigator.clipboard.writeText(text).then(() => {
+                btn.textContent = 'copied!';
+                btn.style.color = '#4ec9b0';
+                setTimeout(() => {
+                    btn.textContent = 'copy';
+                    btn.style.color = '';
+                }, 2000);
+            });
+        }
+
         const cursor = document.querySelector('.cursor');
         const cursorDot = document.querySelector('.cursor-dot');
-        
+
         document.addEventListener('mousemove', (e) => {
             cursor.style.left = e.clientX + 'px';
             cursor.style.top = e.clientY + 'px';
@@ -1919,14 +2437,12 @@ Prompt 3: Architecture
             cursorDot.style.top = e.clientY + 'px';
         });
 
-        // Cursor hover effect
         const hoverElements = document.querySelectorAll('a, button, .project-card, .card, .nav-toggle, .nav-close');
         hoverElements.forEach(el => {
             el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
             el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
         });
 
-        // Navigation panel
         const navToggle = document.getElementById('navToggle');
         const navPanel = document.getElementById('navPanel');
         const navClose = document.getElementById('navClose');
@@ -1946,14 +2462,13 @@ Prompt 3: Architecture
             });
         });
 
-        // Scroll reveal
         const revealElements = document.querySelectorAll('.reveal');
-        
+
         const revealOnScroll = () => {
             revealElements.forEach(el => {
                 const elementTop = el.getBoundingClientRect().top;
                 const windowHeight = window.innerHeight;
-                
+
                 if (elementTop < windowHeight - 100) {
                     el.classList.add('active');
                 }
@@ -1963,7 +2478,6 @@ Prompt 3: Architecture
         window.addEventListener('scroll', revealOnScroll);
         window.addEventListener('load', revealOnScroll);
 
-        // Smooth scroll
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
                 e.preventDefault();
@@ -1977,7 +2491,6 @@ Prompt 3: Architecture
             });
         });
 
-        // Parallax effect on hero
         window.addEventListener('scroll', () => {
             const scrolled = window.pageYOffset;
             const hero = document.querySelector('.hero-bg-text');
